@@ -1,0 +1,48 @@
+---
+title: Switching who's fronting
+description: Change who is currently fronting, from any device.
+draft: true
+platforms: [web, android, wear, ios]
+covers:
+  web:
+    - web/src/routes/dashboard.tsx
+    - web/src/lib/fronts.ts
+    - web/src/hooks/use-fronts.ts
+  android:
+    - sheaf/app/src/main/java/systems/lupine/sheaf/ui/home/
+  wear:
+    - sheaf/wear/src/main/java/systems/lupine/sheaf/wear/presentation/
+  ios:
+    - Sheaf/QuickSwitchFrontSheet.swift
+    - Sheaf/HomeView.swift
+verified:
+  web: { date: 2026-07-05, ref: "240d9d7" }
+  android: { date: 2026-07-05, ref: "e92276b" }
+  wear: { date: 2026-07-05, ref: "e92276b" }
+  ios: { date: 2026-07-05, ref: "155bf9f" }
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+{/* Placeholder page: demonstrates the frontmatter convention (platforms /
+    covers / verified) and the platform-tab layout. Marked draft, so it is
+    excluded from production builds until real content lands. */}
+
+Sheaf tracks who is fronting right now, and switching is designed to be the
+fastest thing you can do in the app on every platform.
+
+<Tabs syncKey="platform">
+	<TabItem label="Web">
+		From the dashboard, use **"Start front"** to begin a front, or the quick
+		switch control to hand over.
+	</TabItem>
+	<TabItem label="Android">
+		Content pending first capture pass.
+	</TabItem>
+	<TabItem label="Wear OS">
+		Content pending first capture pass.
+	</TabItem>
+	<TabItem label="iOS">
+		Content pending first capture pass.
+	</TabItem>
+</Tabs>

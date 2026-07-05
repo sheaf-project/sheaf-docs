@@ -1,0 +1,36 @@
+---
+title: Sheaf Docs
+description: User documentation for Sheaf - plural system tracking on web, Android, iOS, Wear OS, and Apple Watch.
+template: splash
+hero:
+  tagline: Track fronting, members, journals, and more - on the web, your phone, and your wrist.
+  actions:
+    - text: Get started
+      link: /getting-started/
+      icon: right-arrow
+    - text: Open the app
+      link: https://app.sheaf.sh
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid stagger>
+	<Card title="Guides" icon="open-book">
+		Task-by-task walkthroughs for fronting, members, journals, importing, and more.
+	</Card>
+	<Card title="Every platform" icon="laptop">
+		Each guide covers web, Android, and iOS side by side - pick your platform once
+		and the docs follow you.
+	</Card>
+	<Card title="For admins" icon="setting">
+		Running an instance? The admin section documents every capability an admin
+		has - useful for admins, and for users deciding what an instance can see.
+	</Card>
+	<Card title="Self-hosting" icon="rocket">
+		Sheaf is open source. See the
+		<a href="https://github.com/sheaf-project/sheaf/blob/main/docs/SELFHOSTING.md">self-hosting guide</a>
+		to run your own.
+	</Card>
+</CardGrid>
