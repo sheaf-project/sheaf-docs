@@ -37,13 +37,13 @@ images:
     shows: "Admin audit log page: filters for target user and action above a table of when, admin, action, target, and diff or reason (dark theme variant)"
   - file: admin-security-light.png
     platform: web
-    phash: "841f8baa1b45c59f"
-    captured: 2026-07-05
-    captured_ref: "240d9d7"
+    phash: "841f8baa1a55c5cf"
+    captured: 2026-07-06
+    captured_ref: "dbce55d"
     shows: "Admin security page: an IP or subnet lookup form with a required reason field, and a credential-stuffing watch table"
   - file: admin-security-dark.png
     platform: web
-    phash: "ffe03c5560b8ba60"
-    captured: 2026-07-05
-    captured_ref: "240d9d7"
+    phash: "ffe0345465b8ba60"
+    captured: 2026-07-06
+    captured_ref: "dbce55d"
     shows: "Admin security page: an IP or subnet lookup form with a required reason field, and a credential-stuffing watch table (dark theme variant)"

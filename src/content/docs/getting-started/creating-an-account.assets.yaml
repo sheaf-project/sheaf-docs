@@ -1,0 +1,19 @@
+images:
+  - file: auth-register-light.png
+    platform: web
+    phash: "b3cc66339926cc33"
+    captured: 2026-07-06
+    captured_ref: "dbce55d"
+    shows: >-
+      Register tab on the login page with Email, Password, and optional
+      Invite code fields, the email-updates checkbox, and the Create
+      account button.
+  - file: auth-register-dark.png
+    platform: web
+    phash: "cc3399cc668933d9"
+    captured: 2026-07-06
+    captured_ref: "dbce55d"
+    shows: >-
+      Register tab on the login page with Email, Password, and optional
+      Invite code fields, the email-updates checkbox, and the Create
+      account button. (dark theme variant)

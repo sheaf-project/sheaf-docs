@@ -1,0 +1,19 @@
+images:
+  - file: tour-dashboard-light.png
+    platform: web
+    phash: "8455555555555757"
+    captured: 2026-07-06
+    captured_ref: "dbce55d"
+    shows: >-
+      Dashboard after signing in, with the sidebar listing the main areas
+      from Dashboard to Settings, the Currently fronting and System cards,
+      and the Start front button.
+  - file: tour-dashboard-dark.png
+    platform: web
+    phash: "feaaaaaaaaaaa828"
+    captured: 2026-07-06
+    captured_ref: "dbce55d"
+    shows: >-
+      Dashboard after signing in, with the sidebar listing the main areas
+      from Dashboard to Settings, the Currently fronting and System cards,
+      and the Start front button. (dark theme variant)

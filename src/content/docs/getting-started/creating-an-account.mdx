@@ -1,0 +1,94 @@
+---
+title: Creating an account
+description: Register on a Sheaf instance, including invite codes, admin approval, captcha, and email verification.
+platforms: [web]
+covers:
+  web:
+    - "web/src/routes/login.tsx"
+    - "web/src/components/password-field.tsx"
+    - "web/src/components/captcha.tsx"
+    - "web/src/components/account-pending.tsx"
+    - "web/src/routes/verify-email.tsx"
+verified:
+  web:
+    date: 2026-07-06
+    ref: "dbce55d"
+---
+
+You create your account directly on the instance you want to use - the
+hosted instance at [app.sheaf.sh](https://app.sheaf.sh) or a self-hosted
+one. See [Getting started](/getting-started/) for the difference.
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import ThemeImage from '../../../components/ThemeImage.astro';
+import authRegisterLight from './auth-register-light.png';
+import authRegisterDark from './auth-register-dark.png';
+
+<Tabs syncKey="platform">
+<TabItem label="Web">
+
+## Register
+
+1. Open your instance in a browser. While signed out you land on the
+   login page.
+2. Select the **"Register"** tab.
+3. Enter your **"Email"** and a **"Password"** (at least 8 characters; a
+   strength meter appears as you type). While the password is hidden, a
+   **"Confirm password"** field asks you to type it again; the eye button
+   shows the password instead.
+4. If an invite code field is shown, see
+   [registration modes](#registration-modes) below.
+5. Optionally tick the checkbox to get occasional email updates about
+   Sheaf. It is off by default and you can change it later in settings.
+6. If the instance has terms configured, you also have to tick the
+   checkbox agreeing to its **"Terms of Service"** (and, if linked,
+   **"Privacy Policy"**) before you can submit.
+7. Select the create account button.
+
+<ThemeImage
+	light={authRegisterLight}
+	dark={authRegisterDark}
+	alt="Register tab on the login page with Email, Password, and optional Invite code fields, the email-updates checkbox, and the Create account button"
+/>
+
+## Registration modes
+
+What happens next depends on how the instance accepts new accounts:
+
+- **Open**: your account is created straight away. An invite code field
+  may still be shown, marked as optional - some open instances accept
+  codes for perks but do not require one.
+- **Invite code**: the invite code field is required. Codes come from the
+  instance's admins or existing users; without one you cannot register.
+- **Approval**: you can register, but the account has to be reviewed
+  first. After registering you see **"Waiting for approval"**; you can
+  use Sheaf once an admin approves your registration. The page checks
+  for the approval on its own, so you can just leave it open.
+- **Closed**: the instance is not accepting registrations. The
+  **"Register"** tab is not shown at all; only the sign-in form appears.
+
+## Captcha
+
+If the instance has a captcha configured, a verification widget appears
+above the create account button. Complete it (usually a single checkbox
+challenge) before submitting; the button stays disabled until you do.
+
+## Verify your email
+
+On instances that require email verification, creating the account signs
+you in but shows a **"Verify your email"** screen first. Sheaf sends a
+verification link and code to your address:
+
+- Open the link from the email. It lands on the **"Email verified"** page;
+  select **"Continue to Sheaf"**.
+- Or copy the code from the email into the **"Paste verification code"**
+  box on the pending screen and verify it there.
+
+If the email never arrives, check your spam folder, then use the resend
+link on the pending screen.
+
+Once your account is active, see
+[Signing in](/getting-started/signing-in/).
+
+</TabItem>
+</Tabs>

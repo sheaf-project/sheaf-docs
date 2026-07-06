@@ -1,0 +1,33 @@
+images:
+  - file: auth-login-light.png
+    platform: web
+    phash: "b3cccc3399662399"
+    captured: 2026-07-06
+    captured_ref: "dbce55d"
+    shows: >-
+      Login tab on the login page with Email and Password fields and the
+      Sign in button.
+  - file: auth-login-dark.png
+    platform: web
+    phash: "cc3333cc66999966"
+    captured: 2026-07-06
+    captured_ref: "dbce55d"
+    shows: >-
+      Login tab on the login page with Email and Password fields and the
+      Sign in button. (dark theme variant)
+  - file: auth-forgot-password-light.png
+    platform: web
+    phash: "b398cc663399cc66"
+    captured: 2026-07-06
+    captured_ref: "dbce55d"
+    shows: >-
+      Reset your password page with the Email field, Send reset link
+      button, and Back to login link.
+  - file: auth-forgot-password-dark.png
+    platform: web
+    phash: "cc663399cc663399"
+    captured: 2026-07-06
+    captured_ref: "dbce55d"
+    shows: >-
+      Reset your password page with the Email field, Send reset link
+      button, and Back to login link. (dark theme variant)

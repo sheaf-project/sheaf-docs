@@ -1,0 +1,85 @@
+---
+title: Signing in
+description: Sign in with email and password, complete the 2FA prompt, trust a device, and reset a forgotten password.
+platforms: [web]
+covers:
+  web:
+    - "web/src/routes/login.tsx"
+    - "web/src/routes/forgot-password.tsx"
+    - "web/src/routes/reset-password.tsx"
+    - "web/src/components/password-field.tsx"
+verified:
+  web:
+    date: 2026-07-06
+    ref: "dbce55d"
+---
+
+You sign in on the instance your account lives on - see
+[Getting started](/getting-started/) if you are not sure which that is,
+or [Creating an account](/getting-started/creating-an-account/) if you do
+not have one yet.
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import ThemeImage from '../../../components/ThemeImage.astro';
+import authLoginLight from './auth-login-light.png';
+import authLoginDark from './auth-login-dark.png';
+import authForgotLight from './auth-forgot-password-light.png';
+import authForgotDark from './auth-forgot-password-dark.png';
+
+<Tabs syncKey="platform">
+<TabItem label="Web">
+
+## Sign in
+
+1. Open your instance in a browser. While signed out you land on the
+   login page.
+2. On the **"Login"** tab, enter your **"Email"** and **"Password"**.
+3. Select the sign-in button. If the instance runs a captcha on sign-in,
+   complete it first; the button stays disabled until you do.
+
+<ThemeImage
+	light={authLoginLight}
+	dark={authLoginDark}
+	alt="Login tab on the login page with Email and Password fields and the Sign in button"
+/>
+
+## Two-factor authentication
+
+If your account has 2FA enabled, submitting your email and password brings
+up a **"2FA code"** field (**"6-digit code or recovery code"**). Enter the
+current code from your authenticator app and sign in again. If you have
+lost the authenticator, one of your recovery codes works in the same
+field.
+
+To skip the prompt on a device you trust, tick
+**"Trust this device for 30 days. Skip the 2FA prompt on this browser until then."**
+before signing in. If a **"Device name (optional)"** box appears once the
+checkbox is ticked, you can give the device a label you will recognise
+later.
+
+## Forgot your password
+
+If the instance has email delivery set up, a **"Forgot password?"** link
+appears under the sign-in button.
+
+1. Select it to open the **"Reset your password"** page, enter your
+   **"Email"**, and send the reset link. You will see
+   **"If an account with that email exists, we've sent a password reset
+   link. Check your inbox."**
+2. Open the link from the email. It lands on the **"Choose a new
+   password"** page. If you open the page without the link, paste the
+   token from the email into the **"Reset token"** field instead.
+3. Enter a new **"Password"** (with the same confirm field and strength
+   meter as registration) and select **"Reset password"**.
+4. On **"Password reset"**, select **"Go to login"** and sign in with the
+   new password. If the token was expired or already used, select
+   **"Request a new link"** and start over.
+
+<ThemeImage
+	light={authForgotLight}
+	dark={authForgotDark}
+	alt="Reset your password page with the Email field, Send reset link button, and Back to login link"
+/>
+
+</TabItem>
+</Tabs>

@@ -1,0 +1,79 @@
+---
+title: Getting started
+description: What Sheaf is, choosing an instance, and a quick tour of the main areas.
+sidebar:
+  order: 0
+platforms: [web]
+covers:
+  web:
+    - "web/src/routes/index.tsx"
+    - "web/src/routes/_layout.tsx"
+    - "web/src/components/app-sidebar.tsx"
+    - "web/src/routes/dashboard.tsx"
+verified:
+  web:
+    date: 2026-07-06
+    ref: "dbce55d"
+---
+
+Sheaf tracks fronting, members, journals, and more for plural systems - on
+the web, your phone, and your wrist. It is open source and self-hostable,
+and these docs cover every platform side by side.
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import ThemeImage from '../../../components/ThemeImage.astro';
+import tourDashboardLight from './tour-dashboard-light.png';
+import tourDashboardDark from './tour-dashboard-dark.png';
+
+## Hosted or self-hosted
+
+Every Sheaf account lives on one instance. The hosted instance run by the
+Sheaf project is at [app.sheaf.sh](https://app.sheaf.sh); anyone can also
+run their own (see the
+[self-hosting guide](https://github.com/sheaf-project/sheaf/blob/main/docs/SELFHOSTING.md)).
+On the web you simply visit your instance's address in a browser. On mobile
+the server URL matters: the apps ask which instance to sign in to, so if
+your account is on a self-hosted instance you will need its URL, not
+app.sheaf.sh.
+
+New here? [Create an account](/getting-started/creating-an-account/) on
+your instance, then [sign in](/getting-started/signing-in/).
+
+<Tabs syncKey="platform">
+<TabItem label="Web">
+
+## A quick tour
+
+After signing in you land on the **"Dashboard"**, with the main areas of
+Sheaf in the sidebar on the left.
+
+<ThemeImage
+	light={tourDashboardLight}
+	dark={tourDashboardDark}
+	alt="Dashboard after signing in, with the sidebar listing the main areas from Dashboard to Settings, the Currently fronting and System cards, and the Start front button"
+/>
+
+- **"Dashboard"**: who is **"Currently fronting"** right now, member and
+  active-front counts, and the **"Start front"** button.
+- **"Members"**: the members of your system - add them, edit their
+  profiles, and archive the ones you no longer track.
+- **"Journals"**: journal entries, written by a member or for the system
+  as a whole.
+- **"Fronts"**: your full front history, where past entries can be edited
+  or deleted.
+- **"Analytics"**: fronting statistics over time.
+- **"Groups"**: organize members into groups; groups can be nested.
+- **"Notifications"**: notification channels, and watchers who get pinged
+  when the front changes.
+- **"Reminders"**: one-off and automated reminders, delivered through your
+  notification channels.
+- **"Polls"**: let your headmates vote on a question.
+- **"Messages"**: per-member message walls.
+- **"Settings"**: system behaviour, safety, appearance, account, and data
+  options.
+
+The sidebar also has a **"Support"** link, and instance admins see an
+extra **"Admin"** section below the main areas.
+
+</TabItem>
+</Tabs>

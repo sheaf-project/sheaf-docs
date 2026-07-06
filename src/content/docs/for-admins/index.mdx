@@ -25,8 +25,8 @@ covers:
     - sheaf/config.py
 verified:
   web:
-    date: 2026-07-05
-    ref: "240d9d7"
+    date: 2026-07-06
+    ref: "dbce55d"
 ---
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
@@ -71,8 +71,9 @@ gate themselves. API keys carrying admin scopes are exempt from step-up.
 The **"Admin"** landing page shows instance-wide totals: user count, member
 count, storage used, and users per tier. It also shows shared Pushover
 notification usage where that is configured, and two maintenance actions:
-**"Run retention"** (prunes old front records per the retention policy) and
-**"Clean up orphaned files"**.
+**"Run retention"** (runs the front-history retention sweep, which prunes
+old front records only for systems that have opted in to retention
+themselves) and **"Clean up orphaned files"**.
 
 ### Users
 
@@ -137,8 +138,12 @@ it exposes no user data.
 
 The **"Scheduled Jobs"** page lists the instance's background jobs
 (retention, cleanup, and similar) with their schedules, run history, and
-per-run logs, and lets an admin trigger a job manually. Job logs contain
-counts and errors, not user content.
+per-run logs, and lets an admin trigger a job manually, with one exception:
+while the operator's deletion kill switch (`DESTRUCTIVE_JOBS_ENABLED` off)
+is in effect, manually triggering a job that deletes data is refused, and
+that includes the two maintenance actions on the overview. The API accepts
+a deliberate override, and using it is recorded in the audit log. Job logs
+contain counts and errors, not user content.
 
 ### Audit log
 
