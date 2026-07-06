@@ -1,0 +1,87 @@
+---
+title: Importing your data
+description: Bring your system's data into Sheaf from another app or a Sheaf backup, review what will be imported, and track past imports.
+platforms: [web]
+covers:
+  web:
+    - web/src/routes/import.tsx
+    - web/src/routes/imports.tsx
+    - web/src/routes/imports.$id.tsx
+    - web/src/lib/imports.ts
+    - web/src/lib/sp-import.ts
+verified:
+  web: { date: 2026-07-05, ref: "240d9d7" }
+---
+
+Sheaf can import your system from most plural apps, or restore one of its own backups. You pick a source, upload or connect, review exactly what will come across, and only then import.
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import ThemeImage from '../../../../components/ThemeImage.astro';
+import importingHubLight from './importing-hub-light.png';
+import importingHubDark from './importing-hub-dark.png';
+import spUploadLight from './importing-sp-upload-light.png';
+import spUploadDark from './importing-sp-upload-dark.png';
+
+<Tabs syncKey="platform">
+<TabItem label="Web">
+
+## Where to find it
+
+The import hub lives at `/import`. You can reach it from the **"Import data"** card under Settings, Data, or head there directly. The hub's **"Import history"** button leads to `/imports`, which lists every import you have run.
+
+<ThemeImage
+	light={importingHubLight}
+	dark={importingHubDark}
+	alt="The import hub at /import listing the supported import sources as cards"
+/>
+
+## Supported sources
+
+The hub offers one card per source:
+
+- **"Import from Sheaf"**: a Sheaf data export (JSON or ZIP). Use this to restore a backup or migrate between Sheaf instances; the ZIP variant restores avatars and embedded images too.
+- **"Import from SimplyPlural"**: a SimplyPlural data export (JSON file).
+- **"Import from PluralKit"**: connect with your PluralKit token, or upload a `pk;export` file. The token is used once to fetch your system and never stored.
+- **"Import from Tupperbox"**: a `tb!export` file. Tupperbox does not track fronting, so only tuppers and groups come across.
+- **"Import from PluralSpace"**: a PluralSpace data export (zip), including members, fronts, journals, chat, polls, and avatars.
+- **"Import from Prism"**: an encrypted `.prism` export plus its passphrase. The passphrase is encrypted at rest and wiped when the import finishes.
+- **"Import from OpenPlural"**: an OpenPlural v0.1 document from Sheaf or any OpenPlural-compatible app, as bare `.json` or an `.openplural.zip` bundle.
+
+Octocon and compatible forks work through the PluralKit importer via a PK-format export.
+
+## How an import works
+
+Every source follows the same shape:
+
+1. **Pick the source** on the **"Import data"** page.
+2. **Upload or connect.** Most sources take an export file; PluralKit can also pull live from the API with a token, and Prism asks for the export's decryption passphrase.
+3. **Review.** Sheaf parses the export and shows an **"Export summary"** with counts of what it found, plus **"Import options"**: which kinds of data to bring across, what to do when a member already exists (skip them, update them, or always add as new; skipping is the default so re-importing the same file will not duplicate your roster), and which members to include. If anything exceeds Sheaf's field limits you get a **"Some data will be shortened"** warning first, and if the import would blow past your account's member limit the **"Import"** button stays disabled until you deselect enough members.
+4. **Import.** The import runs as a background job. You are taken straight to its detail page, which updates live and records any per-record warnings or errors.
+
+Nothing is written to your account until you confirm at step 4; backing out of a preview changes nothing.
+
+## Import history
+
+The **"Imports"** page at `/imports` lists past and in-flight imports with their source, status, a summary of what was imported, and when they ran. Rows link to the full detail page for that job, and **"New import"** takes you back to the hub. Jobs still running update automatically; there is no need to refresh.
+
+## Worked example: SimplyPlural
+
+1. In SimplyPlural, request a data export and save the JSON file it produces.
+2. Open the import hub and choose **"Import from SimplyPlural"**.
+3. On the **"Upload SP export file"** card, select your JSON file. The preview appears as soon as the file parses.
+
+<ThemeImage
+	light={spUploadLight}
+	dark={spUploadDark}
+	alt="The SimplyPlural import upload step with an empty file picker"
+/>
+
+4. Check the **"Export summary"**: members, custom fronts, front history, groups, custom fields, and notes found in the export.
+5. Pick your options. **"System profile (name, description, color)"**, **"Custom fronts"**, **"Custom fields (definitions + values)"**, and **"Groups"** are on by default; front history is off by default, so tick it if you want your SimplyPlural switch log imported. Custom fronts become members in Sheaf, so they count toward your member limit alongside the members themselves.
+6. Choose what happens **"If a member already exists"** (skip is the default), and optionally narrow the import down to specific members.
+7. Press **"Import"**. You land on the job's page to watch it finish, and it appears in your import history afterwards.
+
+Per-source details for the other importers are covered in their own guides.
+
+</TabItem>
+</Tabs>

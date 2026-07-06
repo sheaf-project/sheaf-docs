@@ -1,0 +1,20 @@
+images:
+  - file: switching-dashboard-light.png
+    platform: web
+    phash: "8455555555555757"
+    captured: 2026-07-05
+    captured_ref: "240d9d7"
+    shows: >-
+      Dashboard with the Currently fronting card showing an active fronter
+      (member badge with time since) and the Start front button in the page
+      header, plus the System card with member and active front counts.
+  - file: switching-start-front-light.png
+    platform: web
+    phash: "9a1465d7655d3075"
+    captured: 2026-07-05
+    captured_ref: "240d9d7"
+    shows: >-
+      Start front dialog open over the dashboard, with quick-pick chips,
+      group and tag filter rows, the member search box, the full member
+      list, the custom status field, and the End all current fronts
+      checkbox with the Start button.

@@ -1,0 +1,25 @@
+images:
+  - file: members-list-light.png
+    platform: web
+    phash: "8355555555555557"
+    captured: 2026-07-05
+    captured_ref: "240d9d7"
+    shows: "The Members page on web, showing the member roster as a grid of cards with avatars, names, and pronouns, and the Add member button in the header."
+  - file: members-list-dark.png
+    platform: web
+    phash: "feaaaaaaaaa8aaa0"
+    captured: 2026-07-05
+    captured_ref: "240d9d7"
+    shows: "The Members page on web, showing the member roster as a grid of cards with avatars, names, and pronouns, and the Add member button in the header. (dark theme variant)"
+  - file: members-add-member-light.png
+    platform: web
+    phash: "9b5574d574557444"
+    captured: 2026-07-05
+    captured_ref: "240d9d7"
+    shows: "The Add member dialog on web, with fields for avatar, banner, name, display name, emoji, and pronouns visible."
+  - file: members-add-member-dark.png
+    platform: web
+    phash: "deaa2322ab8aba39"
+    captured: 2026-07-05
+    captured_ref: "240d9d7"
+    shows: "The Add member dialog on web, with fields for avatar, banner, name, display name, emoji, and pronouns visible. (dark theme variant)"

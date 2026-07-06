@@ -1,0 +1,63 @@
+---
+title: Appearance
+description: Pick a colour palette and light or dark mode for the Sheaf web app, and choose whether those picks sync across your devices.
+platforms: [web]
+covers:
+  web:
+    - "web/src/routes/settings/appearance.tsx"
+    - "web/src/components/settings/appearance-card.tsx"
+    - "web/src/hooks/use-theme.ts"
+    - "web/src/lib/palettes.ts"
+verified:
+  web:
+    date: 2026-07-05
+    ref: "240d9d7"
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import ThemeImage from '../../../components/ThemeImage.astro';
+import appearanceSettingsLight from './appearance-settings-light.png';
+import appearanceSettingsDark from './appearance-settings-dark.png';
+import appearanceSyncLight from './appearance-sync-light.png';
+import appearanceSyncDark from './appearance-sync-dark.png';
+
+Sheaf's look is set by two picks: a colour palette and a light/dark theme mode. You can keep them synced to your account or pin them per browser.
+
+<Tabs syncKey="platform">
+<TabItem label="Web">
+
+Open **"Settings"** and choose **"Appearance"**. The **"Appearance"** card has three controls: the palette grid, the theme mode, and the sync toggle.
+
+<ThemeImage
+	light={appearanceSettingsLight}
+	dark={appearanceSettingsDark}
+	alt="Appearance card in Settings: the palette grid with Classic selected, and the theme mode options below"
+/>
+
+## Palette
+
+The **"Palette"** grid lists every available palette: Classic (the default), Purple, OLED, Pride, Trans, Non-binary, Asexual, Bi, Crimson, Goldenrod, Mint, Ocean, Pan, Plural, and Sepia. Click a tile to apply it immediately; the current palette is outlined and marked with a check.
+
+Every palette has both a light and a dark variant. The palette picks the colours; the theme mode below picks which variant you see. Each tile's three-colour preview is rendered in whichever of light or dark you currently have applied, so the grid shows what each palette would look like right now.
+
+## Theme mode
+
+**"Theme mode"** offers three options: System, Dark, and Light. As the card notes, **"System follows your operating system's dark / light preference."** and updates live if your OS switches during the day. New accounts start on Dark with the Classic palette.
+
+## Syncing across devices
+
+At the bottom of the card, **"Sync these settings across my devices"** controls where your palette and mode are stored:
+
+- Checked: your picks are saved to your account. Every browser logged into the account (and left synced) follows them, and changes you make here apply everywhere.
+- Unchecked: this browser keeps its own local picks. Other browsers are not affected; they use their own picks, or your last synced choice if they have none.
+
+<ThemeImage
+	light={appearanceSyncLight}
+	dark={appearanceSyncDark}
+	alt="Bottom of the Appearance card: the theme mode options and the unchecked sync-across-devices checkbox with its explanation"
+/>
+
+A local pick always wins on the browser it was made in: if you turn sync off and choose a palette, that browser keeps it even if the account setting changes elsewhere. Turning sync back on copies the browser's current palette and mode to your account and drops the local override. Turning sync off pins the current palette and mode to the browser and leaves your account setting untouched, so other synced browsers keep whatever was last synced.
+
+</TabItem>
+</Tabs>

@@ -1,48 +1,95 @@
 ---
 title: Switching who's fronting
-description: Change who is currently fronting, from any device.
-draft: true
-platforms: [web, android, wear, ios]
+description: Record a switch by starting a front, end fronts when they finish, and see who is currently fronting on the dashboard.
+platforms: [web]
 covers:
   web:
-    - web/src/routes/dashboard.tsx
-    - web/src/lib/fronts.ts
-    - web/src/hooks/use-fronts.ts
-  android:
-    - sheaf/app/src/main/java/systems/lupine/sheaf/ui/home/
-  wear:
-    - sheaf/wear/src/main/java/systems/lupine/sheaf/wear/presentation/
-  ios:
-    - Sheaf/QuickSwitchFrontSheet.swift
-    - Sheaf/HomeView.swift
+    - "web/src/routes/dashboard.tsx"
+    - "web/src/routes/fronts.tsx"
+    - "web/src/components/start-front-dialog.tsx"
+    - "web/src/components/member-select.tsx"
+    - "web/src/lib/fronts.ts"
+    - "web/src/hooks/use-fronts.ts"
 verified:
-  web: { date: 2026-07-05, ref: "240d9d7" }
-  android: { date: 2026-07-05, ref: "e92276b" }
-  wear: { date: 2026-07-05, ref: "e92276b" }
-  ios: { date: 2026-07-05, ref: "155bf9f" }
+  web:
+    date: 2026-07-05
+    ref: "240d9d7"
 ---
 
+Sheaf records switches as fronts: you start a front for whoever is at the
+front, and end it when they step back.
+
 import { Tabs, TabItem } from '@astrojs/starlight/components';
-
-{/* Placeholder page: demonstrates the frontmatter convention (platforms /
-    covers / verified) and the platform-tab layout. Marked draft, so it is
-    excluded from production builds until real content lands. */}
-
-Sheaf tracks who is fronting right now, and switching is designed to be the
-fastest thing you can do in the app on every platform.
+import ThemeImage from '../../../../components/ThemeImage.astro';
+import dashboardLight from './switching-dashboard-light.png';
+import dashboardDark from './switching-dashboard-dark.png';
+import startFrontLight from './switching-start-front-light.png';
+import startFrontDark from './switching-start-front-dark.png';
 
 <Tabs syncKey="platform">
-	<TabItem label="Web">
-		From the dashboard, use **"Start front"** to begin a front, or the quick
-		switch control to hand over.
-	</TabItem>
-	<TabItem label="Android">
-		Content pending first capture pass.
-	</TabItem>
-	<TabItem label="Wear OS">
-		Content pending first capture pass.
-	</TabItem>
-	<TabItem label="iOS">
-		Content pending first capture pass.
-	</TabItem>
+<TabItem label="Web">
+
+## See who's fronting
+
+The **"Dashboard"** shows the current state at a glance. The
+**"Currently fronting"** card lists each active front with the fronting
+members and how long each has been at the front, plus the front's custom
+status if one was set. The **"System"** card next to it counts your members
+and **"Active fronts"**. When no front is active, the card reads
+**"Nobody is fronting right now."**
+
+<ThemeImage
+	light={dashboardLight}
+	dark={dashboardDark}
+	alt="Dashboard with the Currently fronting card showing an active fronter and the Start front button in the header"
+/>
+
+## Start a front
+
+1. Select **"Start front"** at the top of the dashboard. (The same button
+   appears on the **"Fronts"** page.)
+2. Pick who is fronting. The chips at the top of the dialog are quick picks:
+   your pinned members and recent fronters. Below them is the full member
+   list; archived members are not shown.
+3. To record co-fronting, select more than one member. Every selected member
+   goes on the same front entry.
+4. Optionally add a note under **"Custom status (optional)"**, for example
+   "at work". It is shown with the front wherever the front appears.
+5. Leave **"End all current fronts"** checked to make this a switch: any
+   active fronts end and the new one replaces them. Uncheck it to start this
+   front alongside the ones already running.
+6. Select **"Start"**.
+
+<ThemeImage
+	light={startFrontLight}
+	dark={startFrontDark}
+	alt="Start front dialog with quick-pick chips, group and tag filters, member search, the member list, custom status field, and the End all current fronts checkbox"
+/>
+
+If your system has groups or tags, filter rows appear above the member list.
+Pick a group chip to narrow the list to that group and its subgroups, or
+**"All groups"** to clear the filter; tag chips work the same way, and a
+group filter and a tag filter combine. With more than eight members a
+**"Search members…"** box also appears, matching against member names and
+display names.
+
+The default for **"End all current fronts"** comes from
+**"End current fronts when starting a new one"** in Settings, under System.
+
+If the exact same set of members already has an active front, Sheaf rejects
+the duplicate and explains why in the dialog.
+
+## End a front
+
+In the **"Currently fronting"** card, select **"End"** next to the front.
+Ending a front does not delete it; it closes the entry with an end time and
+it moves into your history.
+
+## Front history
+
+Past fronts live on the **"Fronts"** page, which lists every entry under
+**"History"** with start and end times, and supports editing and deleting
+entries. See [Front history](/guides/fronting/history/) for details.
+
+</TabItem>
 </Tabs>

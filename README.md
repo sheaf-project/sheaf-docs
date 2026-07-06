@@ -36,7 +36,9 @@ it can be checked against the app's actual strings.
 
 Screenshots live next to their page with a `<page>.assets.yaml` manifest
 recording what each image is supposed to show, when it was captured, and a
-perceptual hash used to triage re-captures.
+perceptual hash used to triage re-captures. Each screenshot ships as a
+light/dark pair rendered through `src/components/ThemeImage.astro`, which
+shows the variant matching the reader's theme (the site defaults to dark).
 
 ## Contributing
 

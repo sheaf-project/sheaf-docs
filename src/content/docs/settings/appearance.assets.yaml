@@ -1,0 +1,25 @@
+images:
+  - file: appearance-settings-light.png
+    platform: web
+    phash: "a01f8f86c68f312f"
+    captured: 2026-07-05
+    captured_ref: "240d9d7"
+    shows: "Appearance card in Settings: the palette grid with Classic selected, and the theme mode options below"
+  - file: appearance-settings-dark.png
+    platform: web
+    phash: "dfe0649b3830dae4"
+    captured: 2026-07-05
+    captured_ref: "240d9d7"
+    shows: "Appearance card in Settings: the palette grid with Classic selected, and the theme mode options below (dark theme variant)"
+  - file: appearance-sync-light.png
+    platform: web
+    phash: "a031756492cdcedb"
+    captured: 2026-07-05
+    captured_ref: "240d9d7"
+    shows: "Bottom of the Appearance card: the theme mode options and the unchecked sync-across-devices checkbox with its explanation"
+  - file: appearance-sync-dark.png
+    platform: web
+    phash: "dfcb9b936c207124"
+    captured: 2026-07-05
+    captured_ref: "240d9d7"
+    shows: "Bottom of the Appearance card: the theme mode options and the unchecked sync-across-devices checkbox with its explanation (dark theme variant)"

@@ -1,0 +1,225 @@
+---
+title: For admins
+description: Every capability of the Sheaf admin dashboard, and exactly what data each one exposes - written for admins running an instance and for users deciding whether to trust one.
+platforms: [web]
+covers:
+  web:
+    - web/src/routes/index.tsx
+    - web/src/routes/admin/_layout.tsx
+    - web/src/routes/admin/index.tsx
+    - web/src/routes/admin/users.tsx
+    - web/src/routes/admin/approvals.tsx
+    - web/src/routes/admin/invites.tsx
+    - web/src/routes/admin/announcements.tsx
+    - web/src/routes/admin/jobs.tsx
+    - web/src/routes/admin/audit.tsx
+    - web/src/routes/admin/security.tsx
+    - web/src/components/settings/admin-activity-card.tsx
+    - web/src/lib/admin.ts
+    - sheaf/api/v1/admin.py
+    - sheaf/api/v1/admin_small_actions.py
+    - sheaf/api/v1/admin_emergency.py
+    - sheaf/api/v1/admin_audit.py
+    - sheaf/api/v1/admin_security.py
+    - sheaf/models/user.py
+    - sheaf/config.py
+verified:
+  web:
+    date: 2026-07-05
+    ref: "240d9d7"
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import ThemeImage from '../../../components/ThemeImage.astro';
+import adminUsersLight from './admin-users-light.png';
+import adminUsersDark from './admin-users-dark.png';
+import adminAnnouncementsLight from './admin-announcements-light.png';
+import adminAnnouncementsDark from './admin-announcements-dark.png';
+import adminAuditLight from './admin-audit-light.png';
+import adminAuditDark from './admin-audit-dark.png';
+import adminSecurityLight from './admin-security-light.png';
+import adminSecurityDark from './admin-security-dark.png';
+
+This section documents the complete admin surface of a Sheaf instance. It is
+written for two audiences at once: admins who run an instance, and users who
+want to know exactly what the admin of their instance can and cannot see or
+do. Everything below describes what the app actually implements, not policy.
+
+<Tabs syncKey="platform">
+<TabItem label="Web">
+
+## Access and step-up authentication
+
+The admin dashboard is only visible to accounts with the admin flag set.
+Operators can additionally require step-up authentication with the
+`ADMIN_AUTH_LEVEL` setting:
+
+- `none` (default): any admin account can open the dashboard immediately.
+- `password`: admins must re-enter their password at a
+  **"Confirm your identity"** prompt.
+- `totp`: admins must enter an authenticator code, and cannot access the
+  dashboard at all until TOTP is enabled on their account.
+
+A completed step-up is valid for two hours and applies only to the session
+that completed it; other logged-in sessions on the same account must pass the
+gate themselves. API keys carrying admin scopes are exempt from step-up.
+
+## The admin pages
+
+### Overview
+
+The **"Admin"** landing page shows instance-wide totals: user count, member
+count, storage used, and users per tier. It also shows shared Pushover
+notification usage where that is configured, and two maintenance actions:
+**"Run retention"** (prunes old front records per the retention policy) and
+**"Clean up orphaned files"**.
+
+### Users
+
+<ThemeImage
+	light={adminUsersLight}
+	dark={adminUsersDark}
+	alt="Admin users page: a table of accounts with email, status, tier, member limit, admin flag, upload permissions, member count, and storage used"
+/>
+
+The **"Users"** page lists every account with its email address, account
+status, tier, member limit, admin flag, image upload permissions, member
+count, and storage used. Admins can search by email and filter by exact
+signup IP.
+
+Expanding a row reveals more account detail and the per-account actions:
+
+- An account detail panel shows tier, status, email verification, whether
+  TOTP is on, signup IP, last login time, active sessions (device user
+  agent, IP, creation time), API key count, the system name and member
+  count, System Safety configuration, and recent rate-limit hits.
+- The security event timeline (logins and similar events, with IP and user
+  agent) and import job logs are behind an extra gate: viewing either
+  requires a written reason and writes an audit row the account owner can
+  see.
+- Account actions: **"Reset password"**, **"Change email"**,
+  **"Disable 2FA"**, **"Verify email"**, **"Reset safety"**,
+  **"Drain pending"**, **"Rotate API keys"**, **"Suspend"**, **"Ban"**, and
+  **"Dossier"** (a GDPR Article 15 metadata export for data subject access
+  requests). Every one of these requires a typed reason and is recorded in
+  the audit log. Recovery actions (password reset, email change, 2FA
+  disable) refuse to target other admin accounts, because chaining them
+  amounts to account takeover.
+
+### Approvals
+
+Where signup approval is enabled, pending accounts wait here. The page shows
+each applicant's email, signup IP, signup time, and email verification state.
+Admins can approve accounts individually or in bulk, or **"Reject"**, which
+deletes the pending account.
+
+### Invites
+
+The **"Invite Codes"** page manages signup invite codes: create codes with
+an optional use limit, expiry, and note, or delete existing codes. It
+shows each code's usage count and which admin created it. No user data
+appears here beyond the creating admin's email.
+
+### Announcements
+
+<ThemeImage
+	light={adminAnnouncementsLight}
+	dark={adminAnnouncementsDark}
+	alt="Admin announcements page: a create form with title, severity, body, expiry, and visibility options, above the list of existing announcements"
+/>
+
+The **"Announcements"** page publishes banner messages to all users, with a
+severity level, optional expiry, an option for whether users can dismiss the
+banner, and an option to show it on the login page. This is broadcast-only;
+it exposes no user data.
+
+### Jobs
+
+The **"Scheduled Jobs"** page lists the instance's background jobs
+(retention, cleanup, and similar) with their schedules, run history, and
+per-run logs, and lets an admin trigger a job manually. Job logs contain
+counts and errors, not user content.
+
+### Audit log
+
+<ThemeImage
+	light={adminAuditLight}
+	dark={adminAuditDark}
+	alt="Admin audit log page: filters for target user and action above a table of when, admin, action, target, and diff or reason"
+/>
+
+The **"Admin audit log"** is an append-only record of every state-changing
+admin action: who did it, to which account, when, the before/after diff, and
+the typed reason. It is filterable by target user and action type. Simply
+browsing the user list is deliberately not logged, so the log stays
+signal-rich; privacy-sensitive reads (security timeline, import logs,
+dossier export, IP lookup) are logged.
+
+### Security
+
+<ThemeImage
+	light={adminSecurityLight}
+	dark={adminSecurityDark}
+	alt="Admin security page: an IP or subnet lookup form with a required reason field, and a credential-stuffing watch table"
+/>
+
+The **"Security"** page has two tools for abuse triage. **"IP / subnet
+lookup"** returns everything the authentication event log has seen from an
+address or CIDR range, including which accounts it touched; it requires a
+written reason and is audit-logged. **"Credential-stuffing watch"** ranks
+IPs by failed logins across distinct accounts and contains no per-account
+data beyond those counts.
+
+## What this means for you as a user
+
+Sheaf is built for people whose data is sensitive, so this is stated plainly
+rather than left to be guessed at.
+
+### What an admin can see
+
+Account and quota-level data: your email address, tier, member limit,
+account status, whether your email is verified, whether 2FA is on, signup
+IP, last login time, active session metadata (device user agent, IP,
+creation time), API key names and scopes (never the keys themselves),
+rate-limit hits, your security event timeline (login attempts with IP and
+user agent), your system's name, how many members / journal entries /
+messages / fronts your system has, storage used, and your System Safety
+configuration. Import job logs are also visible; these are structural
+(counts, stages, source record IDs), though an error entry can in rare
+cases quote a piece of a record that failed validation.
+
+### What an admin cannot see in the app
+
+No admin page or admin API endpoint returns your member profiles (names,
+pronouns, bios, avatars, custom fields), journal entries, message bodies,
+front history, or poll contents. Admins see counts of these things, never
+the content. This applies to the **"Dossier"** export too: it is
+deliberately metadata-only, and admins do not get a content backdoor through
+it. Passwords and TOTP secrets are never displayed anywhere; only hashed or
+encrypted values are stored.
+
+One capability to understand clearly: an admin who resets your password is
+shown the newly generated password once, to hand to you. That is effectively
+access to your account, which is why the action requires a reason, is
+audit-logged, and cannot target admin accounts.
+
+### The honest caveat: database access
+
+The operator of an instance ultimately controls its server. Someone with
+direct database access is not limited by anything the app enforces. What
+limits casual exposure is encryption at the application level: email
+addresses and TOTP secrets are stored as ciphertext (with a keyed hash used
+for email lookups), so a database dump or backup alone does not reveal them
+without the application's keys. If that trust boundary does not work for
+you, Sheaf is self-hostable.
+
+### Every admin action leaves a trail
+
+State-changing admin actions and privacy-sensitive reads on your account are
+written to the audit log with the acting admin's email and their stated
+reason. You do not need to be an admin to see your side of it: the
+**"Admin activity on your account"** card in your account settings shows
+every logged admin action taken against your account.
+
+</TabItem>
+</Tabs>
