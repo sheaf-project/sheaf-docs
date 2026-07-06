@@ -8,6 +8,16 @@ images:
       Dashboard with the Currently fronting card showing an active fronter
       (member badge with time since) and the Start front button in the page
       header, plus the System card with member and active front counts.
+  - file: switching-dashboard-dark.png
+    platform: web
+    phash: "feaaaaaaaaaaa828"
+    captured: 2026-07-05
+    captured_ref: "240d9d7"
+    shows: >-
+      Dashboard with the Currently fronting card showing an active fronter
+      (member badge with time since) and the Start front button in the page
+      header, plus the System card with member and active front counts.
+      (dark theme variant)
   - file: switching-start-front-light.png
     platform: web
     phash: "9a1465d7655d3075"
@@ -18,3 +28,52 @@ images:
       group and tag filter rows, the member search box, the full member
       list, the custom status field, and the End all current fronts
       checkbox with the Start button.
+  - file: switching-start-front-dark.png
+    platform: web
+    phash: "cfeb302838a26f8b"
+    captured: 2026-07-05
+    captured_ref: "240d9d7"
+    shows: >-
+      Start front dialog open over the dashboard, with quick-pick chips,
+      group and tag filter rows, the member search box, the full member
+      list, the custom status field, and the End all current fronts
+      checkbox with the Start button. (dark theme variant)
+  - file: android-home-light.png
+    platform: android
+    phash: "8f9f075af0d0f0d0"
+    captured: 2026-07-06
+    captured_ref: "e92276b"
+    shows: >-
+      The Android Home tab with a current-front card (avatar, name, and
+      time fronting), the Switch button in the bottom corner, and the
+      Quick switch chip row above the bottom navigation.
+  - file: android-home-dark.png
+    platform: android
+    phash: "b468f8354a370f4b"
+    captured: 2026-07-06
+    captured_ref: "e92276b"
+    shows: >-
+      The Android Home tab with a current-front card (avatar, name, and
+      time fronting), the Switch button in the bottom corner, and the
+      Quick switch chip row above the bottom navigation. (dark theme
+      variant)
+  - file: android-quick-switch-light.png
+    platform: android
+    phash: "8fd07a944ed4c6d8"
+    captured: 2026-07-06
+    captured_ref: "e92276b"
+    shows: >-
+      The Select who's fronting sheet on Android, with group filter chips,
+      the member search box, the member list with checkboxes and pronouns,
+      the End current fronts checkbox, the custom status field, and the
+      Confirm Switch button.
+  - file: android-quick-switch-dark.png
+    platform: android
+    phash: "f02f856b913ab923"
+    captured: 2026-07-06
+    captured_ref: "e92276b"
+    shows: >-
+      The Select who's fronting sheet on Android, with group filter chips,
+      the member search box, the member list with checkboxes and pronouns,
+      the End current fronts checkbox, the custom status field, and the
+      Confirm Switch button. (dark theme variant)

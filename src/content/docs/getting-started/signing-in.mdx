@@ -1,17 +1,22 @@
 ---
 title: Signing in
 description: Sign in with email and password, complete the 2FA prompt, trust a device, and reset a forgotten password.
-platforms: [web]
+platforms: [web, android]
 covers:
   web:
     - "web/src/routes/login.tsx"
     - "web/src/routes/forgot-password.tsx"
     - "web/src/routes/reset-password.tsx"
     - "web/src/components/password-field.tsx"
+  android:
+    - "sheaf/app/src/main/java/systems/lupine/sheaf/ui/auth/"
 verified:
   web:
     date: 2026-07-06
     ref: "dbce55d"
+  android:
+    date: 2026-07-06
+    ref: "e92276b"
 ---
 
 You sign in on the instance your account lives on - see
@@ -25,6 +30,8 @@ import authLoginLight from './auth-login-light.png';
 import authLoginDark from './auth-login-dark.png';
 import authForgotLight from './auth-forgot-password-light.png';
 import authForgotDark from './auth-forgot-password-dark.png';
+import androidLoginLight from './android-login-light.png';
+import androidLoginDark from './android-login-dark.png';
 
 <Tabs syncKey="platform">
 <TabItem label="Web">
@@ -80,6 +87,41 @@ appears under the sign-in button.
 	dark={authForgotDark}
 	alt="Reset your password page with the Email field, Send reset link button, and Back to login link"
 />
+
+</TabItem>
+<TabItem label="Android">
+
+## Sign in
+
+The app signs in in two steps: first the server, then your account.
+
+1. On **"Where's your Sheaf server?"**, enter your instance under
+   **"Server URL or domain"**, or leave it blank to use the hosted
+   instance (app.sheaf.sh). `https://` is added automatically; start the
+   address with `http://` only if your server really is plaintext.
+   Select **"Continue"**.
+2. On the next step, a chip at the top shows the server you chose - tap
+   it to go back and change it. With **"Sign In"** selected (not
+   **"Register"**), enter your **"Email"** and **"Password"**, then
+   select the **"Sign In"** button.
+
+<ThemeImage
+	light={androidLoginLight}
+	dark={androidLoginDark}
+	alt="Sign In step of the Android login with the server chip, the Sign In and Register toggle, Email and Password fields, and the Sign In button"
+/>
+
+Self-hosting behind Cloudflare Access? Tap the logo ten times to open
+the **"Cloudflare Access"** dialog and enter your service token headers.
+
+## Two-factor authentication
+
+If your account has 2FA enabled, submitting your email and password
+brings up the **"Two-factor authentication"** step. Enter the 6-digit
+code from your authenticator app in the **"Authenticator code"** field
+and select **"Verify"**. To skip the prompt on this device, tick
+**"Remember this device for 30 days"** before verifying;
+**"Back to sign in"** returns you to the email and password step.
 
 </TabItem>
 </Tabs>

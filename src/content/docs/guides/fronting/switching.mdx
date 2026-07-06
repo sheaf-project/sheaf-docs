@@ -1,7 +1,7 @@
 ---
 title: Switching who's fronting
 description: Record a switch by starting a front, end fronts when they finish, and see who is currently fronting on the dashboard.
-platforms: [web]
+platforms: [web, android]
 covers:
   web:
     - "web/src/routes/dashboard.tsx"
@@ -10,10 +10,15 @@ covers:
     - "web/src/components/member-select.tsx"
     - "web/src/lib/fronts.ts"
     - "web/src/hooks/use-fronts.ts"
+  android:
+    - "sheaf/app/src/main/java/systems/lupine/sheaf/ui/home/"
 verified:
   web:
     date: 2026-07-05
     ref: "240d9d7"
+  android:
+    date: 2026-07-06
+    ref: "e92276b"
 ---
 
 Sheaf records switches as fronts: you start a front for whoever is at the
@@ -25,6 +30,10 @@ import dashboardLight from './switching-dashboard-light.png';
 import dashboardDark from './switching-dashboard-dark.png';
 import startFrontLight from './switching-start-front-light.png';
 import startFrontDark from './switching-start-front-dark.png';
+import androidHomeLight from './android-home-light.png';
+import androidHomeDark from './android-home-dark.png';
+import androidSwitchSheetLight from './android-quick-switch-light.png';
+import androidSwitchSheetDark from './android-quick-switch-dark.png';
 
 <Tabs syncKey="platform">
 <TabItem label="Web">
@@ -90,6 +99,67 @@ it moves into your history.
 Past fronts live on the **"Fronts"** page, which lists every entry under
 **"History"** with start and end times, and supports editing and deleting
 entries. See [Front history](/guides/fronting/history/) for details.
+
+</TabItem>
+<TabItem label="Android">
+
+## See who's fronting
+
+The Home tab greets you with your system name and shows a card for each
+member currently fronting, with their avatar, name, pronouns, how long they
+have been at the front, and the front's custom status if one was set. When
+no front is active, the screen shows **"No one is fronting"** instead.
+
+<ThemeImage
+	light={androidHomeLight}
+	dark={androidHomeDark}
+	alt="The Android Home tab with a current-front card, the Switch button in the bottom corner, and the Quick switch chip row above the bottom navigation"
+/>
+
+## Record a switch
+
+1. Tap **"Switch"** in the bottom corner of the Home tab.
+2. In the **"Select who's fronting"** sheet, tick everyone who is now at
+   the front. The current fronters start out ticked, so recording a switch
+   means unticking whoever is stepping back and ticking whoever is arriving.
+   Ticking more than one member records co-fronting.
+3. If your system has groups, the chips above the list narrow it to one
+   group at a time; **"All"** clears the filter. (Android filters by group
+   only, not by tag.) The **"Search members"** box matches against member
+   names.
+4. Leave **"End current fronts"** checked to make this a switch: the new
+   front replaces the ones already active. Uncheck it to start the new
+   front alongside them. The checkbox starts from your system's
+   end-current-fronts default, the same setting the web app reads.
+5. Optionally add a note under **"Custom status (optional)"**. It is shown
+   with the front wherever the front appears.
+6. Tap the confirm button at the bottom of the sheet; it shows how many
+   members are selected.
+
+<ThemeImage
+	light={androidSwitchSheetLight}
+	dark={androidSwitchSheetDark}
+	alt="The Select who's fronting sheet on Android, with group filter chips, the member search box, the member list with checkboxes and pronouns, the End current fronts checkbox, the custom status field, and the confirm button"
+/>
+
+## Quick switch
+
+The **"Quick switch"** row above the bottom navigation lists your pinned
+members first, then your most frequent recent fronters. Tapping a chip
+switches to that member immediately, using your system's default for
+ending current fronts. To choose explicitly, long-press the chip:
+**"Switch (end current)"** ends the active fronts, and **"Add to front"**
+starts the front alongside them.
+
+## End a front
+
+Long-press a member's card on the Home tab and confirm with **"Remove"**
+in the **"Remove from front?"** dialog. This takes that member off every
+front they are part of; a front with nobody left on it ends and moves into
+your history.
+
+Switches and front removals made while offline are queued and sync
+automatically once you are back online.
 
 </TabItem>
 </Tabs>

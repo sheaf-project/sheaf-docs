@@ -1,7 +1,7 @@
 ---
 title: Managing members
-description: View your member list, create new members, and edit member profiles on Sheaf web.
-platforms: [web]
+description: View your member list, create new members, and edit member profiles in Sheaf.
+platforms: [web, android]
 covers:
   web:
     - web/src/routes/index.tsx
@@ -11,10 +11,16 @@ covers:
     - web/src/hooks/use-custom-fields.ts
     - web/src/components/avatar-upload.tsx
     - web/src/components/banner-upload.tsx
+  android:
+    - sheaf/app/src/main/java/systems/lupine/sheaf/ui/people/
+    - sheaf/app/src/main/java/systems/lupine/sheaf/ui/members/
 verified:
   web:
     date: 2026-07-05
     ref: "240d9d7"
+  android:
+    date: 2026-07-06
+    ref: "e92276b"
 ---
 
 Members are the entries in your system roster. This page covers browsing the member list, creating a member, and editing a member's profile.
@@ -25,6 +31,8 @@ import membersListLight from './members-list-light.png';
 import membersListDark from './members-list-dark.png';
 import addMemberLight from './members-add-member-light.png';
 import addMemberDark from './members-add-member-dark.png';
+import androidMembersLight from './android-members-light.png';
+import androidMembersDark from './android-members-dark.png';
 
 <Tabs syncKey="platform">
 <TabItem label="Web">
@@ -79,6 +87,27 @@ The edit dialog is also where **"Archive member"** and **"Delete member"** live.
 ## Member privacy
 
 Each member has a **"Privacy"** level, set from the create and edit dialogs: **"Private"**, **"Friends only"**, or **"Public"**. New members default to **"Private"**.
+
+</TabItem>
+<TabItem label="Android">
+
+## The Members tab
+
+Open **"Members"** in the bottom navigation. A segmented control at the top switches between the **"Members"** and **"Groups"** lists; the members side shows each member as a card with their avatar, name, and pronouns. Members with a display name set show it in place of their name, and if a member has no avatar the card shows their initial on their chosen color. Archived members are hidden from the list; they are viewed and restored from **"Settings"**. Unlike web, custom fronts appear in the list alongside members rather than in their own section.
+
+<ThemeImage
+	light={androidMembersLight}
+	dark={androidMembersDark}
+	alt="The Members tab on Android, with the Members and Groups segmented control, member cards with avatars, names, and pronouns, and the search and add buttons floating in the bottom corner."
+/>
+
+The search button above the add button opens a **"Search members"** box, which matches against member names and pronouns.
+
+## Creating and editing members
+
+Tap the add button (**"Add member"**) to create a member on the **"New Member"** screen. As on web, only the name is required and everything else can be filled in later.
+
+Tap any card to open the member's profile, which shows their banner, avatar, bio, notes, and profile details. The edit button in the profile's top bar opens the member for editing, and **"Bio history"** browses past bio revisions.
 
 </TabItem>
 </Tabs>

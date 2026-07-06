@@ -31,3 +31,21 @@ images:
     shows: >-
       Reset your password page with the Email field, Send reset link
       button, and Back to login link. (dark theme variant)
+  - file: android-login-light.png
+    platform: android
+    phash: "b672e2589d99d8c8"
+    captured: 2026-07-06
+    captured_ref: "e92276b"
+    shows: >-
+      Sign In step of the Android login with the server chip, the Sign In
+      and Register toggle, Email and Password fields, and the Sign In
+      button.
+  - file: android-login-dark.png
+    platform: android
+    phash: "c88d1d376262b33b"
+    captured: 2026-07-06
+    captured_ref: "e92276b"
+    shows: >-
+      Sign In step of the Android login with the server chip, the Sign In
+      and Register toggle, Email and Password fields, and the Sign In
+      button. (dark theme variant)

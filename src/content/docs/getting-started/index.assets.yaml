@@ -17,3 +17,22 @@ images:
       Dashboard after signing in, with the sidebar listing the main areas
       from Dashboard to Settings, the Currently fronting and System cards,
       and the Start front button. (dark theme variant)
+  - file: android-home-light.png
+    platform: android
+    phash: "8f9f075af0d0f0d0"
+    captured: 2026-07-06
+    captured_ref: "e92276b"
+    shows: >-
+      Home screen with the Welcome header and its message, notification,
+      and settings icons, a current fronting card, the Switch button, the
+      Quick switch row, and the bottom navigation from Home to Polls.
+  - file: android-home-dark.png
+    platform: android
+    phash: "b468f8354a370f4b"
+    captured: 2026-07-06
+    captured_ref: "e92276b"
+    shows: >-
+      Home screen with the Welcome header and its message, notification,
+      and settings icons, a current fronting card, the Switch button, the
+      Quick switch row, and the bottom navigation from Home to Polls.
+      (dark theme variant)

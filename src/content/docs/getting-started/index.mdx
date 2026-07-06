@@ -3,17 +3,23 @@ title: Getting started
 description: What Sheaf is, choosing an instance, and a quick tour of the main areas.
 sidebar:
   order: 0
-platforms: [web]
+platforms: [web, android]
 covers:
   web:
     - "web/src/routes/index.tsx"
     - "web/src/routes/_layout.tsx"
     - "web/src/components/app-sidebar.tsx"
     - "web/src/routes/dashboard.tsx"
+  android:
+    - "sheaf/app/src/main/java/systems/lupine/sheaf/ui/SheafApp.kt"
+    - "sheaf/app/src/main/java/systems/lupine/sheaf/ui/home/"
 verified:
   web:
     date: 2026-07-06
     ref: "dbce55d"
+  android:
+    date: 2026-07-06
+    ref: "e92276b"
 ---
 
 Sheaf tracks fronting, members, journals, and more for plural systems - on
@@ -24,6 +30,8 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 import ThemeImage from '../../../components/ThemeImage.astro';
 import tourDashboardLight from './tour-dashboard-light.png';
 import tourDashboardDark from './tour-dashboard-dark.png';
+import androidHomeLight from './android-home-light.png';
+import androidHomeDark from './android-home-dark.png';
 
 ## Hosted or self-hosted
 
@@ -74,6 +82,47 @@ Sheaf in the sidebar on the left.
 
 The sidebar also has a **"Support"** link, and instance admins see an
 extra **"Admin"** section below the main areas.
+
+</TabItem>
+<TabItem label="Android">
+
+## Getting the app
+
+Sheaf for Android is on the Play Store. If you prefer a build with no
+Google dependencies, download the `.open` variant from the
+[GitHub releases](https://github.com/sheaf-project/android/releases)
+instead.
+
+## A quick tour
+
+After signing in you land on the home tab, and the main areas of the
+app sit in the navigation bar along the bottom of the screen.
+
+<ThemeImage
+	light={androidHomeLight}
+	dark={androidHomeDark}
+	alt="Home screen with the Welcome header and its message, notification, and settings icons, a current fronting card, the Switch button, the Quick switch row, and the bottom navigation from Home to Polls"
+/>
+
+- **Home**: who is fronting right now and for how long, the
+  **"Switch"** button (bottom right), and the **"Quick switch"** row -
+  tap a member there to switch to them instantly.
+- **"Members"**: the members of your system and their groups - add them,
+  edit their profiles, and organize them into groups.
+- **"History"**: your full front history, with fronting analytics a tap
+  away.
+- **"Journals"**: journal entries, written by a member or for the system
+  as a whole.
+- **"Polls"**: let your headmates vote on a question.
+
+The top of the home tab greets you by your system name, next to three
+icons: **"Board messages"** (per-member message walls),
+**"Notifications"** (channels, devices, and reminders), and
+**"Settings"**.
+
+Everything else lives behind the **"Settings"** gear icon: your system
+profile, account, appearance, notifications, server, data and imports,
+safety, and - for instance admins - the admin tools.
 
 </TabItem>
 </Tabs>
