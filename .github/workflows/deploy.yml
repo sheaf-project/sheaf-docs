@@ -1,0 +1,72 @@
+name: Deploy docs
+
+# Builds the Starlight site and publishes it to the S3 origin behind
+# CloudFront + Cloudflare. Auth to AWS is via GitHub OIDC (no stored
+# keys); the role, bucket, distribution and zone come from repo-level
+# Actions variables/secrets so no account identifiers live in this file.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-docs
+  cancel-in-progress: false
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: eu-west-1
+
+      - name: Sync to S3
+        env:
+          BUCKET: ${{ vars.S3_BUCKET }}
+        run: |
+          # Astro fingerprints everything under _astro/, so those files
+          # are immutable and can cache forever; pages revalidate hourly
+          # between deploys. Every deploy also invalidates CloudFront and
+          # purges Cloudflare below.
+          aws s3 sync dist "s3://$BUCKET" --delete \
+            --exclude '_astro/*' \
+            --cache-control 'public,max-age=3600'
+          aws s3 sync dist/_astro "s3://$BUCKET/_astro" \
+            --cache-control 'public,max-age=31536000,immutable'
+
+      - name: Invalidate CloudFront
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }} \
+            --paths '/*'
+
+      - name: Purge Cloudflare cache
+        env:
+          CF_ZONE: ${{ vars.CLOUDFLARE_ZONE_ID }}
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_PURGE_TOKEN }}
+        run: |
+          curl -fsS -X POST \
+            "https://api.cloudflare.com/client/v4/zones/$CF_ZONE/purge_cache" \
+            -H "Authorization: Bearer $CF_TOKEN" \
+            -H "Content-Type: application/json" \
+            --data '{"purge_everything":true}' > /dev/null
