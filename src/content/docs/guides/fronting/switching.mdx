@@ -1,7 +1,7 @@
 ---
 title: Switching who's fronting
 description: Record a switch by starting a front, end fronts when they finish, and see who is currently fronting on the dashboard.
-platforms: [web, android]
+platforms: [web, android, wear]
 covers:
   web:
     - "web/src/routes/dashboard.tsx"
@@ -12,6 +12,11 @@ covers:
     - "web/src/hooks/use-fronts.ts"
   android:
     - "sheaf/app/src/main/java/systems/lupine/sheaf/ui/home/"
+  wear:
+    - "sheaf/wear/src/main/java/systems/lupine/sheaf/wear/presentation/MenuScreen.kt"
+    - "sheaf/wear/src/main/java/systems/lupine/sheaf/wear/presentation/HomeScreen.kt"
+    - "sheaf/wear/src/main/java/systems/lupine/sheaf/wear/presentation/SwitchScreen.kt"
+    - "sheaf/wear/src/main/java/systems/lupine/sheaf/wear/data/"
 verified:
   web:
     date: 2026-07-05
@@ -19,6 +24,9 @@ verified:
   android:
     date: 2026-07-06
     ref: "e92276b"
+  wear:
+    date: 2026-07-07
+    ref: "605b119"
 ---
 
 Sheaf records switches as fronts: you start a front for whoever is at the
@@ -160,6 +168,49 @@ your history.
 
 Switches and front removals made while offline are queued and sync
 automatically once you are back online.
+
+</TabItem>
+<TabItem label="Wear OS">
+
+## See who's fronting
+
+The watch app opens on a menu. Pick **"Currently Fronting"** to see who is
+at the front: each fronting member appears as a chip with their avatar,
+name, pronouns, and how long they have been fronting. When no front is
+active, the screen shows **"No one fronting"** instead. The **"Refresh"**
+chip at the top pulls the latest state from the server.
+
+## Record a switch
+
+1. Pick **"Switch Front"**, from the menu or from the bottom of the
+   fronting screen.
+2. The member list opens with the current fronters already selected. Tap
+   a member to tick or untick them; ticking more than one member records
+   co-fronting. Pinned members and frequent fronters sort to the top of
+   the list.
+3. Leave **"End existing fronts"** on to make this a switch: the new front
+   replaces the ones already active. Turn it off to start the new front
+   alongside them. The toggle starts from **"End fronts on switch"** in
+   the watch's **"Settings"**, which is a watch-side default separate from
+   the one web and Android share; flipping it here applies to this switch
+   only.
+4. Confirm with the button pinned at the bottom; it reads Switch with the
+   number of selected members. A brief **"Switched!"** confirms it. If you
+   untick everyone, the button clears the front instead.
+
+The watch picker keeps things minimal: there is no search, group filter, or
+custom status field. Use the phone or web for those.
+
+![The Wear OS Switch Front screen, with the End existing fronts toggle and the confirm button showing the count of selected members](./wear-switch-dark.png)
+
+## Offline switches
+
+A switch made on the watch is never dropped for lack of signal. If the
+watch cannot reach your server directly, it hands the switch to the Sheaf
+app on your phone to deliver; if the phone cannot be reached either, the
+switch is queued on the watch and sent the next time it syncs. Either way
+the front is recorded with the time you confirmed the switch, not the time
+the connection came back.
 
 </TabItem>
 </Tabs>

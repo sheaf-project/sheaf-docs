@@ -35,3 +35,9 @@ images:
     captured: 2026-07-06
     captured_ref: "e92276b"
     shows: "The Members tab on Android, with the Members and Groups segmented control, member cards with avatars, names, and pronouns, and the search and add buttons floating in the bottom corner. (dark theme variant)"
+  - file: wear-members-dark.png
+    platform: wear
+    phash: "c03b95c16ac03fcf"
+    captured: 2026-07-07
+    captured_ref: "605b119"
+    shows: "The Wear OS Members list, with the Refresh and Add Member chips above member chips showing avatars, names, and pronouns."

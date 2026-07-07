@@ -77,3 +77,11 @@ images:
       the member search box, the member list with checkboxes and pronouns,
       the End current fronts checkbox, the custom status field, and the
       Confirm Switch button. (dark theme variant)
+  - file: wear-switch-dark.png
+    platform: wear
+    phash: "822d5ad02dd27fc3"
+    captured: 2026-07-07
+    captured_ref: "605b119"
+    shows: >-
+      The Wear OS Switch Front screen, with the End existing fronts toggle
+      and the confirm button showing the count of selected members.

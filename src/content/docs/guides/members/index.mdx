@@ -1,7 +1,7 @@
 ---
 title: Managing members
 description: View your member list, create new members, and edit member profiles in Sheaf.
-platforms: [web, android]
+platforms: [web, android, wear]
 covers:
   web:
     - web/src/routes/index.tsx
@@ -14,6 +14,12 @@ covers:
   android:
     - sheaf/app/src/main/java/systems/lupine/sheaf/ui/people/
     - sheaf/app/src/main/java/systems/lupine/sheaf/ui/members/
+  wear:
+    - sheaf/wear/src/main/java/systems/lupine/sheaf/wear/presentation/MenuScreen.kt
+    - sheaf/wear/src/main/java/systems/lupine/sheaf/wear/presentation/MembersScreen.kt
+    - sheaf/wear/src/main/java/systems/lupine/sheaf/wear/presentation/MemberProfileScreen.kt
+    - sheaf/wear/src/main/java/systems/lupine/sheaf/wear/presentation/AddMemberScreen.kt
+    - sheaf/wear/src/main/java/systems/lupine/sheaf/wear/data/
 verified:
   web:
     date: 2026-07-05
@@ -21,6 +27,9 @@ verified:
   android:
     date: 2026-07-06
     ref: "e92276b"
+  wear:
+    date: 2026-07-07
+    ref: "605b119"
 ---
 
 Members are the entries in your system roster. This page covers browsing the member list, creating a member, and editing a member's profile.
@@ -108,6 +117,21 @@ The search button above the add button opens a **"Search members"** box, which m
 Tap the add button (**"Add member"**) to create a member on the **"New Member"** screen. As on web, only the name is required and everything else can be filled in later.
 
 Tap any card to open the member's profile, which shows their banner, avatar, bio, notes, and profile details. The edit button in the profile's top bar opens the member for editing, and **"Bio history"** browses past bio revisions.
+
+</TabItem>
+<TabItem label="Wear OS">
+
+## Members on the watch
+
+The watch app opens on a menu; pick **"Members"** to see your roster. Each member appears as a chip with their avatar, name, and pronouns, and members who are currently fronting are highlighted. Members with a display name set show it in place of their name, and if a member has no avatar the chip shows their emoji, or their initials, on their chosen color. The **"Refresh"** chip pulls the latest roster from the server.
+
+![The Wear OS Members list, with the Refresh and Add Member chips above member chips showing avatars, names, and pronouns](./wear-members-dark.png)
+
+Tap a member to open their profile, which shows their avatar, name, pronouns, whether they are **"Currently fronting"**, and their bio as plain text.
+
+## Adding a member from the watch
+
+Pick **"Add Member"** at the top of the list. The watch form is minimal: a required name, plus optional display name and pronouns. Confirm with **"Add"**, or back out with **"Cancel"**. Everything else on the member's profile can be filled in later from the phone or web.
 
 </TabItem>
 </Tabs>

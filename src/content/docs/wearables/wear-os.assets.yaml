@@ -1,0 +1,58 @@
+images:
+  - file: wear-menu-dark.png
+    platform: wear
+    phash: "c09d2f61b3c81ddc"
+    captured: 2026-07-07
+    captured_ref: "605b119"
+    shows: >-
+      The Wear OS start menu with the Sheaf title and the Currently
+      Fronting and Switch Front chips at the top of the destination list.
+  - file: wear-home-dark.png
+    platform: wear
+    phash: "c01f5d618ee01fd5"
+    captured: 2026-07-07
+    captured_ref: "605b119"
+    shows: >-
+      The Currently Fronting screen with the Refresh chip and a fronting
+      member chip showing the avatar and time at front.
+  - file: wear-switch-dark.png
+    platform: wear
+    phash: "822d5ad02dd27fc3"
+    captured: 2026-07-07
+    captured_ref: "605b119"
+    shows: >-
+      The Switch Front screen with the End existing fronts toggle, a
+      selected member chip, and the confirm chip showing the selection
+      count.
+  - file: wear-members-dark.png
+    platform: wear
+    phash: "c03b95c16ac03fcf"
+    captured: 2026-07-07
+    captured_ref: "605b119"
+    shows: >-
+      The Members screen with the Refresh chip and the Add Member chip
+      above the member list.
+  - file: wear-groups-dark.png
+    platform: wear
+    phash: "c090934b3e6a3f3d"
+    captured: 2026-07-07
+    captured_ref: "605b119"
+    shows: >-
+      The Groups list reached from the start menu, with the menu chips
+      scrolling away above it.
+  - file: wear-history-dark.png
+    platform: wear
+    phash: "d80f07f8a88a9f87"
+    captured: 2026-07-07
+    captured_ref: "605b119"
+    shows: >-
+      The Recent fronts screen listing past fronting sets with avatars,
+      names, and relative times, with the ongoing entry marked by a plus.
+  - file: wear-settings-dark.png
+    platform: wear
+    phash: "8a1d75e59ac81d65"
+    captured: 2026-07-07
+    captured_ref: "605b119"
+    shows: >-
+      The Settings screen with the server address, member and fronting
+      counts, and the Refresh chip.
