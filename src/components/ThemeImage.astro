@@ -1,6 +1,9 @@
 ---
 // Renders the light or dark variant of a screenshot to match the current
 // site theme. Both variants ship; Starlight's sl-hidden utilities pick one.
+// Clicking opens the full-resolution original in an in-page lightbox
+// (native <dialog>, no dependencies); without JavaScript the link still
+// opens the original directly.
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 
@@ -13,5 +16,65 @@ interface Props {
 const { light, dark, alt } = Astro.props;
 ---
 
-<Image src={light} alt={alt} class="dark:sl-hidden" />
-<Image src={dark} alt={alt} class="light:sl-hidden" />
+<a href={light.src} target="_blank" rel="noopener" class="dark:sl-hidden theme-image">
+	<Image src={light} alt={alt} />
+</a>
+<a href={dark.src} target="_blank" rel="noopener" class="light:sl-hidden theme-image">
+	<Image src={dark} alt={alt} />
+</a>
+
+<style>
+	.theme-image {
+		cursor: zoom-in;
+	}
+</style>
+
+<style is:global>
+	dialog.theme-image-lightbox {
+		/* A CSS reset strips the UA margin:auto that centres native
+		   dialogs; put it back explicitly. */
+		margin: auto;
+		max-width: 96vw;
+		max-height: 96vh;
+		padding: 0;
+		border: none;
+		background: transparent;
+	}
+	dialog.theme-image-lightbox::backdrop {
+		background: rgba(0, 0, 0, 0.8);
+	}
+	dialog.theme-image-lightbox img {
+		display: block;
+		max-width: 96vw;
+		max-height: 96vh;
+		cursor: zoom-out;
+	}
+</style>
+
+<script>
+	// One shared lightbox for every ThemeImage on the page. Astro dedupes
+	// this script, and event delegation covers all instances.
+	function lightbox(): HTMLDialogElement {
+		let dlg = document.querySelector<HTMLDialogElement>('dialog.theme-image-lightbox');
+		if (!dlg) {
+			dlg = document.createElement('dialog');
+			dlg.className = 'theme-image-lightbox';
+			dlg.appendChild(document.createElement('img'));
+			// Close on any click; ESC works natively.
+			dlg.addEventListener('click', () => dlg!.close());
+			document.body.appendChild(dlg);
+		}
+		return dlg;
+	}
+
+	document.addEventListener('click', (e) => {
+		const link = (e.target as Element).closest?.('a.theme-image');
+		if (!(link instanceof HTMLAnchorElement)) return;
+		e.preventDefault();
+		const dlg = lightbox();
+		const img = dlg.querySelector('img')!;
+		img.src = link.href;
+		img.alt = link.querySelector('img')?.alt ?? '';
+		dlg.showModal();
+	});
+</script>

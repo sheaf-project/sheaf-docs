@@ -1,0 +1,87 @@
+---
+title: Reminders
+description: Create scheduled reminders and automated reminders that fire after a front change, delivered through your notification channels.
+platforms: [web]
+covers:
+  web:
+    - "web/src/routes/reminders.tsx"
+    - "web/src/lib/reminders.ts"
+    - "web/src/lib/notifications.ts"
+verified:
+  web:
+    date: 2026-07-08
+    ref: "271f085"
+---
+
+Reminders deliver through your notification channels: each reminder rides
+one channel you have already set up, whether that is your own ntfy topic
+or a channel someone else receives.
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import ThemeImage from '../../../../components/ThemeImage.astro';
+import remindersLight from './reminders-list-light.png';
+import remindersDark from './reminders-list-dark.png';
+
+<Tabs syncKey="platform">
+<TabItem label="Web">
+
+## Your reminders
+
+The **"Reminders"** page lists every reminder with a summary of when it
+fires, the channel it delivers through, and, for scheduled reminders, the
+next fire time. Each row has **"Pause"** and **"Resume"** to stop and
+restart a reminder without losing its setup (a paused reminder shows a
+**"Disabled"** badge), plus edit and delete buttons.
+
+<ThemeImage
+	light={remindersLight}
+	dark={remindersDark}
+	alt="The Reminders page listing an automated reminder that fires 30 minutes after anyone fronts and two scheduled reminders, weekly Sunday and daily, each showing the channel it delivers through and its next fire time"
+/>
+
+## Create a reminder
+
+You need at least one notification channel first; if you have none, the
+page points you to [Front notifications](/guides/notifications/) to
+create one.
+
+1. Select **"New reminder"**.
+2. Give it a **"Name"** for your list, plus the notification content:
+   a **"Title"** and an optional **"Body (optional)"**.
+3. Under **"Send via"**, pick the notification channel that delivers it.
+4. Pick the **"Trigger type"**: **"Schedule"** for a recurring reminder,
+   or **"After a switch"** for an automated one tied to front changes.
+5. Confirm with Create.
+
+## Scheduled reminders
+
+A **"Schedule"** reminder repeats. Pick a **"Frequency"** of
+**"Daily"**, **"Weekly"** (choose which **"Days"**), or **"Monthly"**
+(choose the **"Day of month"**), a **"Time of day"**, and a
+**"Timezone"**. For anything more intricate, tick **"Advanced (cron)"**
+and enter standard 5-field cron syntax instead.
+
+Scheduled reminders can also be scoped to who is around. Under
+**"Only fire when…"**, choose **"always (system-wide)"** or
+**"a specific member is fronting"** and pick the members. With member
+scoping, if nobody on the list is fronting at the trigger time, you can
+have the reminder queue and arrive as a digest when one of them next
+starts fronting, capped at 5 missed firings; queued firings show on the
+reminder's row.
+
+The screenshot above shows both shapes: a daily evening reminder and a
+weekly Sunday one, each riding an ntfy channel.
+
+## Automated reminders
+
+An **"After a switch"** reminder fires off front activity instead of the
+clock. Choose the trigger under **"When"** (any member, or one specific
+member) and **"Event"** (**"starts fronting"**, **"stops fronting"**, or
+**"fronts or stops"**), then set **"Fire after (minutes)"** to delay the
+ping past the front change itself.
+
+The seeded example above fires 30 minutes after anyone starts fronting,
+which suits check-in prompts like grounding after a switch.
+
+</TabItem>
+</Tabs>

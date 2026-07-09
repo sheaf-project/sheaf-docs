@@ -1,0 +1,22 @@
+images:
+  - file: reminders-list-light.png
+    platform: web
+    phash: "9455555555555557"
+    captured: 2026-07-08
+    captured_ref: "271f085"
+    shows: >-
+      The Reminders page listing an automated reminder that fires 30
+      minutes after anyone fronts and two scheduled reminders (weekly
+      Sunday and daily), each showing the channel it delivers through
+      and its next fire time, with the New reminder button in the header.
+  - file: reminders-list-dark.png
+    platform: web
+    phash: "fbaaaaaaaaaa2a28"
+    captured: 2026-07-08
+    captured_ref: "271f085"
+    shows: >-
+      The Reminders page listing an automated reminder that fires 30
+      minutes after anyone fronts and two scheduled reminders (weekly
+      Sunday and daily), each showing the channel it delivers through
+      and its next fire time, with the New reminder button in the header.
+      (dark theme variant)

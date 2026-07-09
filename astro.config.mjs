@@ -36,6 +36,8 @@ export default defineConfig({
 					items: [
 						{ label: 'Fronting', items: [{ autogenerate: { directory: 'guides/fronting' } }] },
 						{ label: 'Members', items: [{ autogenerate: { directory: 'guides/members' } }] },
+						{ label: 'Notifications', items: [{ autogenerate: { directory: 'guides/notifications' } }] },
+						{ label: 'Reminders', items: [{ autogenerate: { directory: 'guides/reminders' } }] },
 						{ label: 'Importing', items: [{ autogenerate: { directory: 'guides/importing' } }] },
 					],
 				},

@@ -1,0 +1,218 @@
+---
+title: Front notifications
+description: Set up watchers and channels so trusted people get pinged when fronts change, control what each recipient can see, and manage the notifications you receive.
+platforms: [web]
+covers:
+  web:
+    - "web/src/routes/notifications.tsx"
+    - "web/src/routes/notifications.$channelId.tsx"
+    - "web/src/routes/notifications.redeem.tsx"
+    - "web/src/routes/notifications.manage.$mgmtToken.tsx"
+    - "web/src/components/notifications/"
+    - "web/src/lib/notifications.ts"
+    - "web/src/hooks/use-notifications.ts"
+verified:
+  web:
+    date: 2026-07-08
+    ref: "271f085"
+---
+
+Watchers let trusted people get pinged when your fronts change. Each
+watcher can have several delivery channels, and every channel has its own
+triggers and per-member visibility filters, so you control exactly what
+each recipient is allowed to see.
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import ThemeImage from '../../../../components/ThemeImage.astro';
+import listLight from './notifications-list-light.png';
+import listDark from './notifications-list-dark.png';
+import newWatcherLight from './notifications-new-watcher-light.png';
+import newWatcherDark from './notifications-new-watcher-dark.png';
+import channelDetailLight from './notifications-channel-detail-light.png';
+import channelDetailDark from './notifications-channel-detail-dark.png';
+
+<Tabs syncKey="platform">
+<TabItem label="Web">
+
+## Watchers and channels
+
+The **"Notifications"** page has two tabs: **"Sending"** lists the
+watchers you have set up for other people, and **"Receiving"** lists
+notifications you get from other systems.
+
+A watcher usually stands for one recipient, for example a partner or a
+therapist. Under it you add channels, one per delivery method: web push to
+a browser, mobile push to the Sheaf app, a webhook, ntfy, or Pushover.
+Filters are set per channel, so the same person can get full detail on
+their phone and a redacted ping somewhere shared.
+
+<ThemeImage
+	light={listLight}
+	dark={listDark}
+	alt="The Notifications page on the Sending tab, with a watcher card holding three channels: a pending web push channel, an active ntfy channel, and an active webhook channel"
+/>
+
+## Add a watcher
+
+1. Select **"Add watcher"** at the top of the page.
+2. In the **"New watcher"** dialog, optionally fill in **"Label (optional)"**
+   with who the watcher is for. The label is for your reference only;
+   recipients never see it.
+3. Confirm with Create.
+
+<ThemeImage
+	light={newWatcherLight}
+	dark={newWatcherDark}
+	alt="The New watcher dialog with the optional label field and its note that recipients never see the label"
+/>
+
+To remove a watcher later, use the **"Revoke watcher"** button on its
+card and confirm with **"Revoke"**. All of its channels stop delivering.
+
+## Add a channel
+
+1. Select **"Channel"** on the watcher's card.
+2. In the **"New channel"** dialog, give the channel a **"Name"**.
+   Recipients do see this one; it identifies the subscription on their
+   side.
+3. Pick a **"Destination"**:
+   - **"Web push (browser)"** sends notifications straight to the
+     recipient's browser. You get a one-time activation link to pass on.
+   - **"Mobile push (iOS + Android)"** rings the Sheaf app on every device
+     the recipient has signed into. Also activated by link; the recipient
+     needs the app installed and signed in.
+   - **"Webhook"** POSTs each event to the **"URL"** you enter. The
+     **"Payload format"** can be **"JSON (Sheaf format, signed)"** (add a
+     **"Secret (optional)"** to get an HMAC signature header),
+     **"Discord"**, **"Slack-compatible"**, or **"Plain text"**.
+   - **"ntfy"** publishes to a **"Topic"** on the **"Server URL"** you
+     choose (ntfy.sh by default, or your own server).
+   - **"Pushover"** delivers via the recipient's Pushover **"User key"**.
+     On instances that share one Pushover app, monthly delivery caps and a
+     minimum debounce apply; expand the advanced section to paste your own
+     Pushover app token and use your own quota instead.
+4. Confirm to create the channel.
+
+Webhook, ntfy, and Pushover channels are Active immediately.
+
+## Activation links and channel states
+
+Web push and mobile push channels start out Pending. Creating one shows a
+one-time activation link, with **"Copy link"** and **"Open"** buttons.
+The link is shown only once and expires, so copy it right away and relay
+it to the recipient out-of-band.
+
+The recipient opens the link on the **"Subscribe to notifications"**
+page, selects **"Allow notifications"** (or hands off to the Sheaf app
+for mobile push), and the channel turns Active. They do not need a Sheaf
+account for this. If the link goes astray before it is used, open the
+channel while it is still Pending and select **"Re-issue link"** to get a
+fresh one.
+
+Each channel row shows its state: Pending while awaiting activation,
+Active while delivering, Disabled while paused. Use the pause and resume
+controls on the row, or **"Pause"** and **"Resume"** on the channel's own
+page, to stop and restart deliveries without deleting anything.
+
+After subscribing, the recipient gets a **"Manage subscription"** link of
+their own. It shows the channel's status and an **"Unsubscribe"** button,
+again with no account needed. Unsubscribing is quiet: you see the channel
+become disabled, but not who unsubscribed or when. If you pause a channel,
+their manage page shows it as paused by the sender, and deliveries resume
+automatically if you resume it.
+
+## Triggers and filters
+
+Selecting a channel opens its settings page. Changes apply when you save
+them with the Save changes button at the bottom.
+
+<ThemeImage
+	light={channelDetailLight}
+	dark={channelDetailDark}
+	alt="The settings page for an active ntfy channel, with Pause, Send test, Duplicate, and Delete actions in the header, the destination and state card, the Triggers card with the co-fronter redaction dropdown, the Base set card, and the tops of the Group rules and Member rules cards"
+/>
+
+- **"Triggers"** chooses which events fire the channel:
+  **"Member starts fronting"**, **"Member stops fronting"**, and
+  **"Co-front composition changes"** (someone joins or leaves alongside a
+  watched member). The co-front trigger has a **"Co-fronter redaction"**
+  option so the ping can name co-fronters, give only a count, say just
+  that someone joined, or be suppressed when anyone invisible to this
+  channel is involved.
+- **"Delivery"** controls how much a ping reveals and how often one can
+  arrive. **"Payload sensitivity"** ranges from full (member names
+  included) through minimal (someone started fronting) to bare (a front
+  changed). **"Debounce (seconds)"** is the minimum gap between
+  deliveries, **"Aggregation window (seconds)"** batches several events
+  into one message (0 means realtime), and **"Quiet hours"** defers
+  events inside a start-to-end window (in a timezone you pick) until the
+  window ends.
+
+**"Send test"** on the channel page delivers a test ping to an active
+channel, and **"Duplicate"** copies a channel's whole configuration as a
+starting point for a new one.
+
+## Member visibility
+
+Three cards on the channel page decide which members the channel may
+report on. They layer up: **"Base set"** is Layer 1, **"Group rules"**
+are Layer 2, and **"Member rules (overrides)"** are Layer 3. When the
+layers disagree, the most specific one wins: a member override beats any
+group rule, and a group rule beats the base set.
+
+**"Base set"** (Layer 1) is the default for every member no other layer
+mentions:
+
+- **"All members"** starts from everyone, except that private members
+  stay out unless you also turn on **"Also include private members"**.
+- **"No-one (use Layer 2/3 to include)"** starts from nobody, for
+  channels that should only report on members you list explicitly.
+
+**"Group rules"** (Layer 2) adjust the base set by group. Pick a group
+under **"Add group"**, then set its rule to **"Include"** or
+**"Exclude"**. A rule applies to every member of the group, and if a
+member's groups match both kinds of rule at once, the exclude wins.
+Include rules also carry their own privacy setting for the private
+members of the group: **"Privacy: inherit Layer 1"** follows the base
+set's private-members switch, **"Privacy: include private"** brings them
+in, and **"Privacy: exclude private"** keeps them out.
+
+**"Member rules (overrides)"** (Layer 3) pin individual members. Pick a
+member under **"Add member"** and choose **"Include"** or **"Exclude"**;
+that decision is final, whatever the base set and group rules say. An
+include here admits a private member too.
+
+The **"Resolved members"** card at the bottom of the page previews the
+outcome live while you edit, before anything is saved. It lists who will
+and will not trigger the channel, and tags each member with the layer
+that decided it: "L1 (private excluded)" for a private member kept out
+by the base set, "L2" plus the group's name for a group rule, or
+"L3 rule" for a member override.
+
+For example, to report on everyone except one group, with a single
+exception from that group:
+
+1. Leave the base set on **"All members"**.
+2. Add the group under **"Group rules"** and set it to **"Exclude"**.
+3. Add the exception under **"Member rules (overrides)"** and set them
+   to **"Include"**.
+
+The preview then shows the group's members as excluded by the Layer 2
+rule, the exception as included by their Layer 3 override, and any
+private members outside the group still excluded at Layer 1 until you
+switch them on.
+
+## Receiving
+
+The **"Receiving"** tab is the other direction: notifications other
+systems send to you. If you redeem an activation link while signed in to
+your account, the channel is listed here with the sending system's label
+and its state, so you can **"Unsubscribe"** from one place instead of
+keeping management links around.
+
+If you use mobile push, a **"Your devices"** card lists each phone
+registered from the Sheaf app. You can rename a device, mute it
+temporarily without unregistering, or remove it entirely.
+
+</TabItem>
+</Tabs>
