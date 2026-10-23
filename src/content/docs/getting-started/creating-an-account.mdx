@@ -11,8 +11,8 @@ covers:
     - "web/src/routes/verify-email.tsx"
 verified:
   web:
-    date: 2026-07-06
-    ref: "dbce55d"
+    date: 2026-09-30
+    ref: "4527d6c"
 ---
 
 You create your account directly on the instance you want to use - the
@@ -36,7 +36,9 @@ import authRegisterDark from './auth-register-dark.png';
    strength meter appears as you type). While the password is hidden, a
    **"Confirm password"** field asks you to type it again; the eye button
    shows the password instead.
-4. If an invite code field is shown, see
+4. If the instance uses invite codes, an **"Invite code"** field appears:
+   required on invite-only instances, marked as optional on instances
+   that accept codes without requiring one. See
    [registration modes](#registration-modes) below.
 5. Optionally tick the checkbox to get occasional email updates about
    Sheaf. It is off by default and you can change it later in settings.
@@ -55,15 +57,18 @@ import authRegisterDark from './auth-register-dark.png';
 
 What happens next depends on how the instance accepts new accounts:
 
-- **Open**: your account is created straight away. An invite code field
-  may still be shown, marked as optional - some open instances accept
-  codes for perks but do not require one.
+- **Open**: your account is created straight away. If the instance also
+  accepts invite codes, the invite code field is shown as optional; you
+  can leave it blank, but a code you do enter has to be valid.
 - **Invite code**: the invite code field is required. Codes come from the
-  instance's admins or existing users; without one you cannot register.
+  instance's admins; without one you cannot register.
 - **Approval**: you can register, but the account has to be reviewed
   first. After registering you see **"Waiting for approval"**; you can
   use Sheaf once an admin approves your registration. The page checks
-  for the approval on its own, so you can just leave it open.
+  for the approval on its own, so you can just leave it open. If the
+  instance also accepts invite codes, entering a valid code in the
+  optional invite code field skips the review and your account is
+  active straight away.
 - **Closed**: the instance is not accepting registrations. The
   **"Register"** tab is not shown at all; only the sign-in form appears.
 
@@ -84,8 +89,8 @@ verification link and code to your address:
 - Or copy the code from the email into the **"Paste verification code"**
   box on the pending screen and verify it there.
 
-If the email never arrives, check your spam folder, then use the resend
-link on the pending screen.
+If the email never arrives, check your spam folder, then select
+**"Resend verification email"** on the pending screen.
 
 Once your account is active, see
 [Signing in](/getting-started/signing-in/).

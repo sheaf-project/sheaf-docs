@@ -1,9 +1,9 @@
 images:
   - file: notifications-list-light.png
     platform: web
-    phash: "9555555555555555"
-    captured: 2026-07-08
-    captured_ref: "271f085"
+    phash: "9455555555555557"
+    captured: 2026-09-30
+    captured_ref: "4527d6c"
     shows: >-
       The Notifications page on the Sending tab, with a watcher card
       ("Shared with partner") holding three channels: a pending web push
@@ -11,9 +11,9 @@ images:
       webhook channel, with the Add watcher button in the header.
   - file: notifications-list-dark.png
     platform: web
-    phash: "faa8aaaaaaaaaaa8"
-    captured: 2026-07-08
-    captured_ref: "271f085"
+    phash: "faaaaaaaaaaa2aa8"
+    captured: 2026-09-30
+    captured_ref: "4527d6c"
     shows: >-
       The Notifications page on the Sending tab, with a watcher card
       ("Shared with partner") holding three channels: a pending web push
@@ -23,40 +23,40 @@ images:
   - file: notifications-new-watcher-light.png
     platform: web
     phash: "8f157445df92644d"
-    captured: 2026-07-08
-    captured_ref: "271f085"
+    captured: 2026-09-30
+    captured_ref: "4527d6c"
     shows: >-
       The New watcher dialog with the optional label field, its note that
       recipients never see the label, and the Create button.
   - file: notifications-new-watcher-dark.png
     platform: web
-    phash: "fae829ba8a6d3892"
-    captured: 2026-07-08
-    captured_ref: "271f085"
+    phash: "fae829ba8a6d2a92"
+    captured: 2026-09-30
+    captured_ref: "4527d6c"
     shows: >-
       The New watcher dialog with the optional label field, its note that
       recipients never see the label, and the Create button. (dark theme
       variant)
   - file: notifications-channel-detail-light.png
     platform: web
-    phash: "8c2ad32b1f6da2d1"
-    captured: 2026-07-08
-    captured_ref: "271f085"
+    phash: "8c2ad3ab1d1caed1"
+    captured: 2026-09-30
+    captured_ref: "4527d6c"
     shows: >-
       The settings page for the active ntfy channel ("Partner's ntfy"),
       with Pause, Send test, Duplicate, and Delete actions in the header,
-      the destination and state card, the Triggers card with the
-      co-fronter redaction dropdown, the Base set card, and the tops of
-      the Group rules and Member rules (overrides) cards.
+      the destination and state card, the Triggers card with its three
+      trigger checkboxes, the Base set card, and the Group rules and
+      Member rules (overrides) cards.
   - file: notifications-channel-detail-dark.png
     platform: web
-    phash: "fbd528c4e0b21d2e"
-    captured: 2026-07-08
-    captured_ref: "271f085"
+    phash: "fbd52c54e2e0512e"
+    captured: 2026-09-30
+    captured_ref: "4527d6c"
     shows: >-
       The settings page for the active ntfy channel ("Partner's ntfy"),
       with Pause, Send test, Duplicate, and Delete actions in the header,
-      the destination and state card, the Triggers card with the
-      co-fronter redaction dropdown, the Base set card, and the tops of
-      the Group rules and Member rules (overrides) cards. (dark theme
+      the destination and state card, the Triggers card with its three
+      trigger checkboxes, the Base set card, and the Group rules and
+      Member rules (overrides) cards. (dark theme
       variant)

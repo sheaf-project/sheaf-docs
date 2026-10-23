@@ -22,14 +22,14 @@ covers:
     - sheaf/wear/src/main/java/systems/lupine/sheaf/wear/data/
 verified:
   web:
-    date: 2026-07-05
-    ref: "240d9d7"
+    date: 2026-09-30
+    ref: "4527d6c"
   android:
-    date: 2026-07-06
-    ref: "e92276b"
+    date: 2026-10-20
+    ref: "942075f"
   wear:
-    date: 2026-07-07
-    ref: "605b119"
+    date: 2026-10-22
+    ref: "6c432d9"
 ---
 
 Members are the entries in your system roster. This page covers browsing the member list, creating a member, and editing a member's profile.
@@ -58,6 +58,8 @@ Open **"Members"** from the sidebar. Each member appears as a card showing their
 
 Entries marked as custom fronts (fronting states like "Asleep" or "Away") are listed in their own **"Custom fronts"** section below the roster, and archived members are hidden from the list entirely. Click any card to open the member's profile, which links to their journal and wall and is where you edit them.
 
+The profile also shows the member's custom field values, relationships, and tags. If you turn on **"Show member created dates"** in Settings > System, it shows the date each member was added as well.
+
 ## Creating a member
 
 Click **"Add member"** in the page header. Only **"Name"** is required; everything else can be filled in later.
@@ -74,12 +76,12 @@ The dialog scrolls; the full set of profile fields is:
 - **"Pronouns"**, shown on the member's card and profile.
 - **"Emoji"**, shown next to the name and used as the avatar fallback.
 - **"Color"**, picked from a color swatch or entered as a hex code. Used as the background when there is no avatar.
-- An avatar and a **"Banner"** image, each uploaded from a file or linked by URL.
+- An avatar and a **"Banner"** image, each uploaded from a file (if your instance allows image uploads) or linked by URL.
 - **"Birthday"**, with a no-birth-year option.
 - **"Bio"**, a Markdown editor for the member's profile text.
-- **"Notes"**, a separate Markdown scratchpad for quick-reference info. Unlike the bio, notes keep no revision history and are not protected by System Safety.
+- **"Notes"**, a separate Markdown scratchpad for quick-reference info. Unlike the bio, notes keep no revision history and are not protected by System Safety. Both the bio and the notes have a formatting help button (the question-mark icon) listing the Markdown you can use.
 - **"PluralKit ID"**, if you cross-reference this member with PluralKit.
-- **"Privacy"** (see below).
+- **"Privacy"**, plus two sharing protections if your instance allows public profiles (see below).
 - **"Custom front (not a member)"**, which marks the entry as a fronting state rather than a member. Custom fronts can still front and be in groups, but don't count toward member statistics.
 - **"Pin to quick-switch"**, which keeps the member at the top of the start-front quick-pick list.
 
@@ -87,22 +89,35 @@ Fill in what you want and submit with the button at the bottom of the dialog.
 
 ## Editing a member
 
-Click a member's card, then **"Edit"** in their profile. The **"Edit member"** dialog has the same fields as the create dialog, plus a **"Custom fields"** section when your system has custom fields defined: each field gets an input matching its type (text, number, date, checkbox, or a choice list). Click **"Save"** to apply profile changes; custom field changes are saved separately with their own button.
+Click a member's card, then **"Edit"** in their profile. The **"Edit member"** dialog has the same fields as the create dialog, plus a **"Custom fields"** section when your system has custom fields defined: each field gets an input matching its type (text, number, date, checkbox, or a choice list), and a label beside it says who can see that field (**"Private"**, **"Friends only"**, or **"Public"**). That level belongs to the field and applies to every member, so it is changed under **"Custom fields"** in Settings > System, not here. Click **"Save"** to apply profile changes; custom field changes are saved separately with **"Save fields"**.
+
+Below the custom fields, the **"Relationships"** section is where you add and manage this member's relationships to other members.
 
 Edits to the bio keep revision history: open the member's profile and use **"History"** to browse, restore, or pin past versions. Tags are also managed from the profile, under **"Tags"**.
 
-The edit dialog is also where **"Archive member"** and **"Delete member"** live. Archiving hides a member from the roster and pickers while keeping them in front history and journals, and can be undone from settings; deleting is permanent (subject to your System Safety settings).
+The edit dialog is also where **"Archive member"** and **"Delete member"** live. Archiving hides a member from the roster and pickers while keeping them in front history and journals, and can be undone from **"Archived members"** in Settings > System; deleting is permanent (subject to your System Safety settings). If an archived member is still part of a public profile or share link you publish, restoring them asks you to confirm, because it puts them back on that page.
 
 ## Member privacy
 
 Each member has a **"Privacy"** level, set from the create and edit dialogs: **"Private"**, **"Friends only"**, or **"Public"**. New members default to **"Private"**.
+
+Setting a member to **"Public"** doesn't publish anything by itself. It allows the member to appear on a public profile or share link you publish from the **"Sharing"** page; members set to **"Private"** or **"Friends only"** never appear there, even if you add them to one. If your instance has sharing turned off, **"Public"** is greyed out with a note explaining why. A member who is already public keeps that setting, and you can still lower it.
+
+When raising a member to **"Public"** would show them on something you already publish, Sheaf asks for your password or two-factor code first (while the **"Profile visibility"** System Safety category is on, which it is by default). If you have a System Safety grace period set, the raise then waits it out: the edit dialog shows when the new level takes effect, and until then the member keeps their old level. Lowering a member's privacy always takes effect straight away.
+
+If your instance allows public profiles, the dialogs also have a **"Sharing protections"** section:
+
+- **"Never shareable"** keeps the member off every public profile and share link, whatever a view says, and removes them from any they are already on.
+- **"Keep fronting private"** lets the member appear but never shows their live front status publicly. New custom fronts start with this on, so a status like "Asleep" is not broadcast.
+
+Turning either protection off again asks you to confirm, the same way raising privacy does.
 
 </TabItem>
 <TabItem label="Android">
 
 ## The Members tab
 
-Open **"Members"** in the bottom navigation. A segmented control at the top switches between the **"Members"** and **"Groups"** lists; the members side shows each member as a card with their avatar, name, and pronouns. Members with a display name set show it in place of their name, and if a member has no avatar the card shows their initial on their chosen color. Archived members are hidden from the list; they are viewed and restored from **"Settings"**. Unlike web, custom fronts appear in the list alongside members rather than in their own section.
+Open **"Members"** from the bottom bar, where it is pinned by default, or from the navigation drawer that **"More"** opens. A segmented control at the top switches between the **"Members"** and **"Groups"** lists; the members side shows each member as a card with their avatar, name, and pronouns. Members with a display name set show it in place of their name, with their emoji in front if they have one, and if a member has no avatar the card shows their emoji or initials on their chosen color. Archived members are hidden from the list; they are viewed and restored from **"Archived members"** in the System section of **"Settings"**. Unlike web, custom fronts appear in the list alongside members rather than in their own section.
 
 <ThemeImage
 	light={androidMembersLight}
@@ -110,20 +125,28 @@ Open **"Members"** in the bottom navigation. A segmented control at the top swit
 	alt="The Members tab on Android, with the Members and Groups segmented control, member cards with avatars, names, and pronouns, and the search and add buttons floating in the bottom corner."
 />
 
-The search button above the add button opens a **"Search members"** box, which matches against member names and pronouns.
+The search button above the add button opens a **"Search members"** box, which matches against the name each member is shown by (their display name, if they have one) and their pronouns.
 
 ## Creating and editing members
 
 Tap the add button (**"Add member"**) to create a member on the **"New Member"** screen. As on web, only the name is required and everything else can be filled in later.
 
-Tap any card to open the member's profile, which shows their banner, avatar, bio, notes, and profile details. The edit button in the profile's top bar opens the member for editing, and **"Bio history"** browses past bio revisions.
+Tap any card to open the member's profile, which shows their banner, avatar, bio, notes, profile details (including the date they were added, if your system shows member created dates), custom fields, tags, and relationships. The edit button in the profile's top bar opens the member for editing, and **"Bio history"** browses past bio revisions.
+
+The edit screen has the member's **"Emoji"**, their **"Privacy"** level, and the **"Never shareable"** and **"Keep fronting private"** switches described on the web tab, and once the member exists, their tags and relationships. Unlike web, the two switches are always shown, whether or not your instance allows public profiles. If public profiles are turned off on your instance, the Public choice is greyed out with a note saying so; a member who is already public keeps that level, and you can still lower it.
+
+As on web, raising a member's privacy may ask for your password or two-factor code. If a System Safety grace period applies, a note under the privacy choice says when the member goes public, and until then they keep their old level; picking a lower level cancels the raise.
+
+Custom fields on the profile and on the edit screen each carry a tag saying who can see that field (**"Private"**, **"Friends only"**, or **"Public"**). As on web, that level belongs to the field, not the member.
+
+**"Archive member"** and **"Delete member"** are at the bottom of the edit screen.
 
 </TabItem>
 <TabItem label="Wear OS">
 
 ## Members on the watch
 
-The watch app opens on a menu; pick **"Members"** to see your roster. Each member appears as a chip with their avatar, name, and pronouns, and members who are currently fronting are highlighted. Members with a display name set show it in place of their name, and if a member has no avatar the chip shows their emoji, or their initials, on their chosen color. The **"Refresh"** chip pulls the latest roster from the server.
+The watch app opens on a menu; pick **"Members"** to see your roster. Each member appears as a chip with their avatar, name, and pronouns, and members who are currently fronting are highlighted. Members with a display name set show it in place of their name, with their emoji in front if they have one, and if a member has no avatar the chip shows their emoji, or their initials, on their chosen color. The **"Refresh"** chip pulls the latest roster from the server.
 
 ![The Wear OS Members list, with the Refresh and Add Member chips above member chips showing avatars, names, and pronouns](./wear-members-dark.png)
 

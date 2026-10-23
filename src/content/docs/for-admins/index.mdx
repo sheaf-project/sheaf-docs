@@ -25,8 +25,8 @@ covers:
     - sheaf/config.py
 verified:
   web:
-    date: 2026-07-06
-    ref: "dbce55d"
+    date: 2026-09-30
+    ref: "4527d6c"
 ---
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
@@ -63,14 +63,17 @@ Operators can additionally require step-up authentication with the
 A completed step-up is valid for two hours and applies only to the session
 that completed it; other logged-in sessions on the same account must pass the
 gate themselves. API keys carrying admin scopes are exempt from step-up.
+Every step-up attempt, successful or not, is recorded in the admin
+account's own security event log.
 
 ## The admin pages
 
 ### Overview
 
 The **"Admin"** landing page shows instance-wide totals: user count, member
-count, storage used, and users per tier. It also shows shared Pushover
-notification usage where that is configured, and two maintenance actions:
+count, storage used, and users per tier. It also shows this month's
+delivery count through the instance's shared Pushover app, and two
+maintenance actions:
 **"Run retention"** (runs the front-history retention sweep, which prunes
 old front records only for systems that have opted in to retention
 themselves) and **"Clean up orphaned files"**.
@@ -91,21 +94,48 @@ signup IP.
 Expanding a row reveals more account detail and the per-account actions:
 
 - An account detail panel shows tier, status, email verification, whether
-  TOTP is on, signup IP, last login time, active sessions (device user
-  agent, IP, creation time), API key count, the system name and member
-  count, System Safety configuration, and recent rate-limit hits.
-- The security event timeline (logins and similar events, with IP and user
-  agent) and import job logs are behind an extra gate: viewing either
+  TOTP is on, signup IP, last login time, active sessions (the device name
+  if one was set, user agent, IP, creation time), API key count, the system
+  name and member count, System Safety configuration, recent rate-limit
+  hits, and the account's import jobs (source, status, date, and whether
+  one failed).
+- A summary of anything queued on the account: queued deletions, queued
+  System Safety changes, and changes waiting out the grace period to make
+  something public. It shows counts and the earliest due time only, never
+  which member or item is involved.
+- The security event timeline (sign-ins and similar events, with IP and
+  user agent) and import job logs are behind an extra gate: viewing either
   requires a written reason and writes an audit row the account owner can
   see.
 - Account actions: **"Reset password"**, **"Change email"**,
   **"Disable 2FA"**, **"Verify email"**, **"Reset safety"**,
-  **"Drain pending"**, **"Rotate API keys"**, **"Suspend"**, **"Ban"**, and
-  **"Dossier"** (a GDPR Article 15 metadata export for data subject access
-  requests). Every one of these requires a typed reason and is recorded in
-  the audit log. Recovery actions (password reset, email change, 2FA
-  disable) refuse to target other admin accounts, because chaining them
-  amounts to account takeover.
+  **"Drain pending"**, **"Cancel exposures"**, **"Rotate API keys"**,
+  **"Terminate"** (ends one session), **"Suspend"** / **"Unsuspend"**,
+  **"Ban"** / **"Unban"**, and **"Dossier"** (a GDPR Article 15 metadata
+  export for data subject access requests). Every one of these requires a
+  typed reason and is recorded in the audit log. Recovery actions (password
+  reset, email change, 2FA disable) refuse to target other admin accounts,
+  because chaining them amounts to account takeover. An admin can remove
+  another admin's admin status first, after which those actions work on
+  that account; the change of admin status is itself recorded in the audit
+  log.
+
+What the System Safety actions do:
+
+- **"Reset safety"** puts System Safety back to how a new account starts
+  (no confirmation, no grace period, default categories) and cancels any
+  queued Safety setting changes. It leaves queued deletions and changes
+  waiting to go public alone.
+- **"Drain pending"** finishes every queued deletion now, without waiting
+  out the grace period. It does not touch anything waiting to go public.
+- **"Cancel exposures"** calls off every change that is waiting out the
+  grace period to make something public. It never un-publishes anything
+  that is already public, and no admin action can bring a publication
+  forward.
+
+While an account is suspended or banned, its public profiles and share
+links (if your instance allows them) stop being served. They are not
+revoked, and they come back when the account does.
 
 ### Approvals
 
@@ -153,10 +183,11 @@ contain counts and errors, not user content.
 	alt="Admin audit log page: filters for target user and action above a table of when, admin, action, target, and diff or reason"
 />
 
-The **"Admin audit log"** is an append-only record of every state-changing
-admin action: who did it, to which account, when, the before/after diff, and
-the typed reason. It is filterable by target user and action type. Simply
-browsing the user list is deliberately not logged, so the log stays
+The **"Admin audit log"** is an append-only record of state-changing admin
+actions: who did it, to which account, when, the before/after diff, and
+the typed reason. Announcement changes are the one exception; they touch no
+account and are not recorded. The log is filterable by target user and
+action type. Simply browsing the user list is deliberately not logged, so the log stays
 signal-rich; privacy-sensitive reads (security timeline, import logs,
 dossier export, IP lookup) are logged.
 
@@ -175,6 +206,26 @@ written reason and is audit-logged. **"Credential-stuffing watch"** ranks
 IPs by failed logins across distinct accounts and contains no per-account
 data beyond those counts.
 
+### Actions outside the dashboard
+
+A few admin actions exist only in the admin API, not on any dashboard page.
+Each one requires a written reason and is recorded in the audit log:
+
+- Cancel an account's scheduled deletion.
+- Take down one system's public profiles and share links, in response to an
+  abuse report. This revokes every live public profile and share link on
+  the system and blocks publishing on it, so the owner cannot simply
+  republish. It does not change the owner's views, members, or privacy
+  settings. The owner sees the revoked links on their Sharing screen, along
+  with a notice that an operator has disabled publishing.
+- Lift that publishing block. Only an admin can lift it, and lifting it
+  republishes nothing.
+
+If your instance allows public profiles, its operator can also publish an
+abuse and DMCA contact. It appears as **"Abuse / DMCA"** in the footer of
+public profile and share link pages. There is no report form: Sheaf sends
+and stores nothing, it only shows the operator's text.
+
 ## What this means for you as a user
 
 Sheaf is built for people whose data is sensitive, so this is stated plainly
@@ -184,14 +235,24 @@ rather than left to be guessed at.
 
 Account and quota-level data: your email address, tier, member limit,
 account status, whether your email is verified, whether 2FA is on, signup
-IP, last login time, active session metadata (device user agent, IP,
-creation time), API key names and scopes (never the keys themselves),
-rate-limit hits, your security event timeline (login attempts with IP and
-user agent), your system's name, how many members / journal entries /
-messages / fronts your system has, storage used, and your System Safety
-configuration. Import job logs are also visible; these are structural
+IP, last login time, active session metadata (any device name you set,
+user agent, IP, creation and last-seen time), API key names and scopes
+(never the keys themselves), rate-limit hits, your security event timeline
+(security-relevant events such as sign-in attempts, password and 2FA
+changes, data exports, publishing, rotating or revoking share links, and
+changes that make something public, each with IP and user agent and never
+with content), your system's name,
+how many members / journal entries / messages / fronts your system has,
+storage used, your System Safety configuration, and how many deletions,
+Safety changes, and public changes are queued on your account (counts and
+times only). Import job logs are also visible; these are structural
 (counts, stages, source record IDs), though an error entry can in rare
 cases quote a piece of a record that failed validation.
+
+The **"Dossier"** export also includes your trusted devices, the app
+preferences your apps sync to the server, your import and export history,
+when you confirmed you are 18 or older, and how many share views and share
+links you have (not their names or addresses).
 
 ### What an admin cannot see in the app
 
@@ -203,6 +264,10 @@ deliberately metadata-only, and admins do not get a content backdoor through
 it. Passwords and TOTP secrets are never displayed anywhere; only hashed or
 encrypted values are stored.
 
+What you publish yourself is the exception: a public profile is public, so
+an admin can open it like any visitor can. Share link addresses are not
+stored in a readable form, so no admin can look one up.
+
 One capability to understand clearly: an admin who resets your password is
 shown the newly generated password once, to hand to you. That is effectively
 access to your account, which is why the action requires a reason, is
@@ -213,18 +278,48 @@ audit-logged, and cannot target admin accounts.
 The operator of an instance ultimately controls its server. Someone with
 direct database access is not limited by anything the app enforces. What
 limits casual exposure is encryption at the application level: email
-addresses and TOTP secrets are stored as ciphertext (with a keyed hash used
-for email lookups), so a database dump or backup alone does not reveal them
-without the application's keys. If that trust boundary does not work for
-you, Sheaf is self-hostable.
+addresses (with a keyed hash used for email lookups), TOTP secrets and
+recovery codes, and the most sensitive text you write (member names,
+descriptions and notes, system notes, journal entries and their revisions,
+message bodies, polls, reminders, custom field values, and the custom
+status on each front) are stored as ciphertext, so a database dump or
+backup alone does not reveal them without the application's keys. The operator holds those
+keys, so this protects against a leaked dump or backup, not against the
+operator. Not everything is encrypted: display names, pronouns, your
+system's name and description, group and tag names, uploaded images, and
+when each front started and ended are stored as plain values. If that trust
+boundary does not work for you, Sheaf is self-hostable.
 
-### Every admin action leaves a trail
+### Usage metrics
+
+If the operator turns on server metrics, Sheaf reports instance-wide counts
+to their monitoring system, such as how many accounts were active today,
+which apps people use, and how many systems use each feature. These are
+aggregate counts, and they do not appear in the admin dashboard. To count
+active accounts without double-counting, Sheaf keeps a daily sketch built
+from a keyed, one-way form of each active account's ID for about a month.
+A sketch cannot list accounts, and without the server's key it reveals
+nothing about any one account; someone who holds the key could at most
+estimate whether a particular account was active on a particular day. An
+optional extended tier adds finer breakdowns, such as
+active accounts by app version. The small amount of per-account state it
+needs is kept under a pseudonymous token that changes every day, and is
+deleted within two days.
+
+### Admin actions on your account leave a trail
 
 State-changing admin actions and privacy-sensitive reads on your account are
 written to the audit log with the acting admin's email and their stated
 reason. You do not need to be an admin to see your side of it: the
-**"Admin activity on your account"** card in your account settings shows
-every logged admin action taken against your account.
+**"Admin activity on your account"** card in your account settings lists
+the most recent logged admin actions taken against your account (up to 50),
+newest first.
+
+Two limits to know about. Routine reads are not logged: the user list, the
+account detail panel, your sessions, your rate-limit hits, and the summary
+of what is queued on your account. And an IP or subnet lookup is logged in
+the admin audit log but not against any one account, so it does not appear
+on your card even when it matched your account.
 
 </TabItem>
 </Tabs>

@@ -2,48 +2,48 @@ images:
   - file: admin-users-light.png
     platform: web
     phash: "803f1f87878f0e0f"
-    captured: 2026-07-05
-    captured_ref: "240d9d7"
+    captured: 2026-09-30
+    captured_ref: "4527d6c"
     shows: "Admin users page: a table of accounts with email, status, tier, member limit, admin flag, upload permissions, member count, and storage used"
   - file: admin-users-dark.png
     platform: web
-    phash: "ffc0c07c61787313"
-    captured: 2026-07-05
-    captured_ref: "240d9d7"
+    phash: "ffc0c068787931f2"
+    captured: 2026-09-30
+    captured_ref: "4527d6c"
     shows: "Admin users page: a table of accounts with email, status, tier, member limit, admin flag, upload permissions, member count, and storage used (dark theme variant)"
   - file: admin-announcements-light.png
     platform: web
-    phash: "881e863f0f3e16cd"
-    captured: 2026-07-05
-    captured_ref: "240d9d7"
+    phash: "888e961e0f3e964f"
+    captured: 2026-09-30
+    captured_ref: "4527d6c"
     shows: "Admin announcements page: a create form with title, severity, body, expiry, and visibility options, above the list of existing announcements"
   - file: admin-announcements-dark.png
     platform: web
-    phash: "ffe039e4b0e1c930"
-    captured: 2026-07-05
-    captured_ref: "240d9d7"
+    phash: "f7f179e430c16990"
+    captured: 2026-09-30
+    captured_ref: "4527d6c"
     shows: "Admin announcements page: a create form with title, severity, body, expiry, and visibility options, above the list of existing announcements (dark theme variant)"
   - file: admin-audit-light.png
     platform: web
-    phash: "803f1f1e1c0e8ecf"
-    captured: 2026-07-05
-    captured_ref: "240d9d7"
+    phash: "803f1f1e1e0e8ccf"
+    captured: 2026-09-30
+    captured_ref: "4527d6c"
     shows: "Admin audit log page: filters for target user and action above a table of when, admin, action, target, and diff or reason"
   - file: admin-audit-dark.png
     platform: web
-    phash: "ffc0e0e1e1b17131"
-    captured: 2026-07-05
-    captured_ref: "240d9d7"
+    phash: "ffc0c0e1f1b17330"
+    captured: 2026-09-30
+    captured_ref: "4527d6c"
     shows: "Admin audit log page: filters for target user and action above a table of when, admin, action, target, and diff or reason (dark theme variant)"
   - file: admin-security-light.png
     platform: web
-    phash: "841f8baa1a55c5cf"
-    captured: 2026-07-06
-    captured_ref: "dbce55d"
+    phash: "841fcaaa1b45c59f"
+    captured: 2026-09-30
+    captured_ref: "4527d6c"
     shows: "Admin security page: an IP or subnet lookup form with a required reason field, and a credential-stuffing watch table"
   - file: admin-security-dark.png
     platform: web
-    phash: "ffe0345465b8ba60"
-    captured: 2026-07-06
-    captured_ref: "dbce55d"
+    phash: "ffe03c55e0b8ba20"
+    captured: 2026-09-30
+    captured_ref: "4527d6c"
     shows: "Admin security page: an IP or subnet lookup form with a required reason field, and a credential-stuffing watch table (dark theme variant)"

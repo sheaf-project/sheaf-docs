@@ -10,7 +10,7 @@ covers:
     - web/src/lib/imports.ts
     - web/src/lib/sp-import.ts
 verified:
-  web: { date: 2026-07-05, ref: "240d9d7" }
+  web: { date: 2026-09-30, ref: "4527d6c" }
 ---
 
 Sheaf can import your system from most plural apps, or restore one of its own backups. You pick a source, upload or connect, review exactly what will come across, and only then import.
@@ -45,7 +45,9 @@ The hub offers one card per source:
 - **"Import from Tupperbox"**: a `tb!export` file. Tupperbox does not track fronting, so only tuppers and groups come across.
 - **"Import from PluralSpace"**: a PluralSpace data export (zip), including members, fronts, journals, chat, polls, and avatars.
 - **"Import from Prism"**: an encrypted `.prism` export plus its passphrase. The passphrase is encrypted at rest and wiped when the import finishes.
-- **"Import from OpenPlural"**: an OpenPlural v0.1 document from Sheaf or any OpenPlural-compatible app, as bare `.json` or an `.openplural.zip` bundle.
+- **"Import from PluralPort"**: a PluralPort v0.1 export from Sheaf or any PluralPort-compatible app, as a bare `.json` document or a `.pluralport.zip` bundle (the bundle restores avatars and embedded images too). PluralPort was previously called OpenPlural; older `.openplural.zip` bundles are still accepted here.
+- **"Import from Ampersand"**: an Ampersand JSON export, including members, custom fronts, custom fields, tags, fronting history, journals, notes, board messages and polls, and avatars. Each Ampersand system becomes a Sheaf group.
+- **"Import from BerryTree"** (marked **"Experimental"**): a BerryTree JSON export. Members, custom statuses, fronting history, and folders come across; anything else in the file is counted and listed under **"What would be left behind"** before you import, rather than guessed at.
 
 Octocon and compatible forks work through the PluralKit importer via a PK-format export.
 
@@ -55,14 +57,16 @@ Every source follows the same shape:
 
 1. **Pick the source** on the **"Import data"** page.
 2. **Upload or connect.** Most sources take an export file; PluralKit can also pull live from the API with a token, and Prism asks for the export's decryption passphrase.
-3. **Review.** Sheaf parses the export and shows an **"Export summary"** with counts of what it found, plus **"Import options"**: which kinds of data to bring across, what to do when a member already exists (skip them, update them, or always add as new; skipping is the default so re-importing the same file will not duplicate your roster), and which members to include. If anything exceeds Sheaf's field limits you get a **"Some data will be shortened"** warning first, and if the import would blow past your account's member limit the **"Import"** button stays disabled until you deselect enough members.
+3. **Review.** Sheaf parses the export and shows an **"Export summary"** with counts of what it found, plus **"Import options"**: which kinds of data to bring across, what to do when a member already exists (skip them, update them, or always add as new; skipping is the default so re-importing the same file will not duplicate your roster), and, for most sources, which members to include. If anything exceeds Sheaf's field limits you get a **"Some data will be shortened"** warning first, and if the import would blow past your account's member limit the **"Import"** button stays disabled until the import fits, for example by deselecting members.
 4. **Import.** The import runs as a background job. You are taken straight to its detail page, which updates live and records any per-record warnings or errors.
 
 Nothing is written to your account until you confirm at step 4; backing out of a preview changes nothing.
 
 ## Import history
 
-The **"Imports"** page at `/imports` lists past and in-flight imports with their source, status, a summary of what was imported, and when they ran. Rows link to the full detail page for that job, and **"New import"** takes you back to the hub. Jobs still running update automatically; there is no need to refresh.
+The **"Imports"** page at `/imports` lists past and in-flight imports with their source, status, a summary of what was imported, and when they ran (shown in your display timezone). Rows link to the full detail page for that job, and **"New import"** takes you back to the hub. Jobs still running update automatically; there is no need to refresh.
+
+On a job's detail page you can **"Cancel"** an import that is still queued, or **"Archive"** one that has finished to remove it from your history. Archiving only hides the job record; it does not undo the import.
 
 ## Worked example: SimplyPlural
 

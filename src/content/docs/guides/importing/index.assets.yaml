@@ -1,25 +1,25 @@
 images:
   - file: importing-hub-light.png
     platform: web
-    phash: "9c07071fc71ec639"
-    captured: 2026-07-05
-    captured_ref: "240d9d7"
+    phash: "9c07471fc71cc639"
+    captured: 2026-09-30
+    captured_ref: "4527d6c"
     shows: "The import hub at /import listing the supported import sources as cards"
   - file: importing-hub-dark.png
     platform: web
-    phash: "fff8a8e038e038c6"
-    captured: 2026-07-05
-    captured_ref: "240d9d7"
+    phash: "fff8a8e038e138c2"
+    captured: 2026-09-30
+    captured_ref: "4527d6c"
     shows: "The import hub at /import listing the supported import sources as cards (dark theme variant)"
   - file: importing-sp-upload-light.png
     platform: web
-    phash: "8e1f1fc0e0c11f1f"
-    captured: 2026-07-05
-    captured_ref: "240d9d7"
+    phash: "8e1f1fc0c1c11f1f"
+    captured: 2026-09-30
+    captured_ref: "4527d6c"
     shows: "The SimplyPlural import upload step with an empty file picker"
   - file: importing-sp-upload-dark.png
     platform: web
     phash: "ffe0e01e1e1ee0e0"
-    captured: 2026-07-05
-    captured_ref: "240d9d7"
+    captured: 2026-09-30
+    captured_ref: "4527d6c"
     shows: "The SimplyPlural import upload step with an empty file picker (dark theme variant)"

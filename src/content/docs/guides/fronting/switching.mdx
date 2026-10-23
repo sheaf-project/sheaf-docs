@@ -19,14 +19,14 @@ covers:
     - "sheaf/wear/src/main/java/systems/lupine/sheaf/wear/data/"
 verified:
   web:
-    date: 2026-07-05
-    ref: "240d9d7"
+    date: 2026-09-30
+    ref: "4527d6c"
   android:
-    date: 2026-07-06
-    ref: "e92276b"
+    date: 2026-10-20
+    ref: "942075f"
   wear:
-    date: 2026-07-07
-    ref: "605b119"
+    date: 2026-10-22
+    ref: "6c432d9"
 ---
 
 Sheaf records switches as fronts: you start a front for whoever is at the
@@ -93,8 +93,9 @@ display names.
 The default for **"End all current fronts"** comes from
 **"End current fronts when starting a new one"** in Settings, under System.
 
-If the exact same set of members already has an active front, Sheaf rejects
-the duplicate and explains why in the dialog.
+If you uncheck **"End all current fronts"** and the exact same set of
+members already has an active front, Sheaf rejects the duplicate and
+explains why in the dialog.
 
 ## End a front
 
@@ -118,6 +119,11 @@ member currently fronting, with their avatar, name, pronouns, how long they
 have been at the front, and the front's custom status if one was set. When
 no front is active, the screen shows **"No one is fronting"** instead.
 
+With **"Coalesce contiguous fronting"** on (under **"Settings"** >
+**"Fronting"**, in the **"For your whole account"** section), each member's
+time counts from the start of their unbroken run at the front, so going
+from fronting solo to co-fronting does not restart their timer.
+
 <ThemeImage
 	light={androidHomeLight}
 	dark={androidHomeDark}
@@ -133,12 +139,15 @@ no front is active, the screen shows **"No one is fronting"** instead.
    Ticking more than one member records co-fronting.
 3. If your system has groups, the chips above the list narrow it to one
    group at a time; **"All"** clears the filter. (Android filters by group
-   only, not by tag.) The **"Search members"** box matches against member
-   names.
+   only, not by tag.) The **"Search members"** box matches against the
+   name each member is shown by (their display name, if they have one).
 4. Leave **"End current fronts"** checked to make this a switch: the new
    front replaces the ones already active. Uncheck it to start the new
    front alongside them. The checkbox starts from your system's
-   end-current-fronts default, the same setting the web app reads.
+   end-current-fronts default: **"End current fronts when starting a new
+   one"**, under **"Settings"** > **"Fronting"** in the **"For your whole
+   account"** section. It is one setting for your whole account, shared
+   with the web app.
 5. Optionally add a note under **"Custom status (optional)"**. It is shown
    with the front wherever the front appears.
 6. Tap the confirm button at the bottom of the sheet; it shows how many
@@ -154,10 +163,13 @@ no front is active, the screen shows **"No one is fronting"** instead.
 
 The **"Quick switch"** row above the bottom navigation lists your pinned
 members first, then your most frequent recent fronters. Tapping a chip
-switches to that member immediately, using your system's default for
-ending current fronts. To choose explicitly, long-press the chip:
-**"Switch (end current)"** ends the active fronts, and **"Add to front"**
-starts the front alongside them.
+switches to that member immediately. What a tap does with fronts that are
+already active is set per device under **"Settings"** > **"Fronting"**:
+**"Follow the account default"** (the starting choice, which uses the
+account-wide setting further down the same screen), **"End other fronts"**, or
+**"Leave other fronts running"**. To choose explicitly for one switch,
+long-press the chip: **"Switch (end current)"** ends the active fronts,
+and **"Add to front"** starts the front alongside them.
 
 ## End a front
 
@@ -195,8 +207,11 @@ chip at the top pulls the latest state from the server.
    the one web and Android share; flipping it here applies to this switch
    only.
 4. Confirm with the button pinned at the bottom; it reads Switch with the
-   number of selected members. A brief **"Switched!"** confirms it. If you
-   untick everyone, the button clears the front instead.
+   number of selected members. A brief **"Switched!"** confirms it. If
+   **"End existing fronts"** is off and exactly these members already have
+   an active front, the watch shows **"Already fronting"** instead and
+   nothing changes. If you untick everyone, the button reads
+   **"Clear Front"** and clears the front instead.
 
 The watch picker keeps things minimal: there is no search, group filter, or
 custom status field. Use the phone or web for those.

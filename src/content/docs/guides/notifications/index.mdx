@@ -13,8 +13,8 @@ covers:
     - "web/src/hooks/use-notifications.ts"
 verified:
   web:
-    date: 2026-07-08
-    ref: "271f085"
+    date: 2026-09-30
+    ref: "4527d6c"
 ---
 
 Watchers let trusted people get pinged when your fronts change. Each
@@ -80,20 +80,27 @@ card and confirm with **"Revoke"**. All of its channels stop delivering.
      recipient's browser. You get a one-time activation link to pass on.
    - **"Mobile push (iOS + Android)"** rings the Sheaf app on every device
      the recipient has signed into. Also activated by link; the recipient
-     needs the app installed and signed in.
+     needs the app installed and signed in. If your instance cannot send
+     mobile push, the option is greyed out and marked as unavailable; open
+     **"Why is mobile push unavailable?"** in the dialog for the reason.
+     ntfy and Pushover can still reach a phone.
    - **"Webhook"** POSTs each event to the **"URL"** you enter. The
-     **"Payload format"** can be **"JSON (Sheaf format, signed)"** (add a
-     **"Secret (optional)"** to get an HMAC signature header),
-     **"Discord"**, **"Slack-compatible"**, or **"Plain text"**.
+     **"Payload format"** can be **"JSON (Sheaf format, signed)"**,
+     **"Discord"**, **"Slack-compatible"**, or **"Plain text"**. For JSON
+     and plain text, add a **"Secret (optional)"** to get an HMAC
+     signature header.
    - **"ntfy"** publishes to a **"Topic"** on the **"Server URL"** you
      choose (ntfy.sh by default, or your own server).
    - **"Pushover"** delivers via the recipient's Pushover **"User key"**.
      On instances that share one Pushover app, monthly delivery caps and a
      minimum debounce apply; expand the advanced section to paste your own
-     Pushover app token and use your own quota instead.
+     Pushover app token and use your own quota instead. If your instance
+     has no shared Pushover app, your own app token is required.
 4. Confirm to create the channel.
 
-Webhook, ntfy, and Pushover channels are Active immediately.
+Webhook, ntfy, and Pushover channels are Active immediately. A new channel
+starts out reporting when any non-private member starts fronting, with
+full detail; change that on the channel's page (see below).
 
 ## Activation links and channel states
 
@@ -104,8 +111,8 @@ it to the recipient out-of-band.
 
 The recipient opens the link on the **"Subscribe to notifications"**
 page, selects **"Allow notifications"** (or hands off to the Sheaf app
-for mobile push), and the channel turns Active. They do not need a Sheaf
-account for this. If the link goes astray before it is used, open the
+for mobile push), and the channel turns Active. For web push they do not
+need a Sheaf account. If the link goes astray before it is used, open the
 channel while it is still Pending and select **"Re-issue link"** to get a
 fresh one.
 
@@ -113,6 +120,12 @@ Each channel row shows its state: Pending while awaiting activation,
 Active while delivering, Disabled while paused. Use the pause and resume
 controls on the row, or **"Pause"** and **"Resume"** on the channel's own
 page, to stop and restart deliveries without deleting anything.
+
+If a channel's destination rejects deliveries, or deliveries keep failing
+for a day, Sheaf switches the channel off by itself. The watcher's card
+then shows a banner naming the channel that stopped sending, and the stop
+is recorded in your account activity. Check that the destination is still
+reachable, then resume the channel.
 
 After subscribing, the recipient gets a **"Manage subscription"** link of
 their own. It shows the channel's status and an **"Unsubscribe"** button,
@@ -129,22 +142,26 @@ them with the Save changes button at the bottom.
 <ThemeImage
 	light={channelDetailLight}
 	dark={channelDetailDark}
-	alt="The settings page for an active ntfy channel, with Pause, Send test, Duplicate, and Delete actions in the header, the destination and state card, the Triggers card with the co-fronter redaction dropdown, the Base set card, and the tops of the Group rules and Member rules cards"
+	alt="The settings page for an active ntfy channel, with Pause, Send test, Duplicate, and Delete actions in the header, the destination and state card, the Triggers card with its three trigger checkboxes, the Base set card, and the Group rules and Member rules cards"
 />
 
 - **"Triggers"** chooses which events fire the channel:
   **"Member starts fronting"**, **"Member stops fronting"**, and
   **"Co-front composition changes"** (someone joins or leaves alongside a
-  watched member). The co-front trigger has a **"Co-fronter redaction"**
-  option so the ping can name co-fronters, give only a count, say just
-  that someone joined, or be suppressed when anyone invisible to this
-  channel is involved.
+  watched member). While any trigger is on and payload sensitivity is
+  full, a **"Hidden co-fronters"** option decides how an excluded or
+  private member fronting alongside a visible one appears in start, stop,
+  and co-front notifications: **"Count only ("and 1 other")"**,
+  **"Vaguer ("someone")"**, or **"Send nothing if anyone is hidden"**.
 - **"Delivery"** controls how much a ping reveals and how often one can
   arrive. **"Payload sensitivity"** ranges from full (member names
   included) through minimal (someone started fronting) to bare (a front
   changed). **"Debounce (seconds)"** is the minimum gap between
-  deliveries, **"Aggregation window (seconds)"** batches several events
-  into one message (0 means realtime), and **"Quiet hours"** defers
+  deliveries; changes inside the gap are held and sent afterward, not
+  dropped. **"Aggregation window (seconds)"** batches the front changes
+  within that many seconds into one message sent when the window closes,
+  so a quick co-front swap arrives as a single ping, at the cost of up to
+  that much delay (0 turns batching off). **"Quiet hours"** defers
   events inside a start-to-end window (in a timezone you pick) until the
   window ends.
 
@@ -208,7 +225,9 @@ The **"Receiving"** tab is the other direction: notifications other
 systems send to you. If you redeem an activation link while signed in to
 your account, the channel is listed here with the sending system's label
 and its state, so you can **"Unsubscribe"** from one place instead of
-keeping management links around.
+keeping management links around. A channel that Sheaf switched off
+because deliveries to you kept failing shows as **"Stopped: deliveries
+failing"**.
 
 If you use mobile push, a **"Your devices"** card lists each phone
 registered from the Sheaf app. You can rename a device, mute it

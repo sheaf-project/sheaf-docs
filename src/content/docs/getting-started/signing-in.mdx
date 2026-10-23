@@ -12,11 +12,11 @@ covers:
     - "sheaf/app/src/main/java/systems/lupine/sheaf/ui/auth/"
 verified:
   web:
-    date: 2026-07-06
-    ref: "dbce55d"
+    date: 2026-09-30
+    ref: "4527d6c"
   android:
-    date: 2026-07-06
-    ref: "e92276b"
+    date: 2026-10-20
+    ref: "942075f"
 ---
 
 You sign in on the instance your account lives on - see
@@ -60,9 +60,9 @@ field.
 
 To skip the prompt on a device you trust, tick
 **"Trust this device for 30 days. Skip the 2FA prompt on this browser until then."**
-before signing in. If a **"Device name (optional)"** box appears once the
-checkbox is ticked, you can give the device a label you will recognise
-later.
+before signing in. Once the checkbox is ticked, a
+**"Device name (optional)"** box appears where you can give the device a
+label you will recognise later.
 
 ## Forgot your password
 
@@ -97,8 +97,10 @@ The app signs in in two steps: first the server, then your account.
 
 1. On **"Where's your Sheaf server?"**, enter your instance under
    **"Server URL or domain"**, or leave it blank to use the hosted
-   instance (app.sheaf.sh). `https://` is added automatically; start the
-   address with `http://` only if your server really is plaintext.
+   instance (app.sheaf.sh). `https://` is added automatically. The server
+   has to use https: the app refuses an `http://` address, because
+   Android blocks unencrypted connections. If your instance is served
+   under a path, include it (for example `example.org/sheaf`).
    Select **"Continue"**.
 2. On the next step, a chip at the top shows the server you chose - tap
    it to go back and change it. With **"Sign In"** selected (not
@@ -119,9 +121,12 @@ the **"Cloudflare Access"** dialog and enter your service token headers.
 If your account has 2FA enabled, submitting your email and password
 brings up the **"Two-factor authentication"** step. Enter the 6-digit
 code from your authenticator app in the **"Authenticator code"** field
-and select **"Verify"**. To skip the prompt on this device, tick
-**"Remember this device for 30 days"** before verifying;
-**"Back to sign in"** returns you to the email and password step.
+and select **"Verify"**. If you have lost the authenticator, tap
+**"Use a recovery code instead"** and enter one of your recovery codes in
+the **"Recovery code"** field, with or without its hyphen;
+**"Use an authenticator code instead"** switches back. To skip the
+prompt on this device, tick **"Remember this device for 30 days"** before
+verifying; **"Back to sign in"** returns you to the email and password step.
 
 </TabItem>
 </Tabs>

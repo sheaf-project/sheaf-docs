@@ -10,8 +10,8 @@ covers:
     - "web/src/lib/palettes.ts"
 verified:
   web:
-    date: 2026-07-05
-    ref: "240d9d7"
+    date: 2026-09-30
+    ref: "4527d6c"
 ---
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
@@ -58,6 +58,8 @@ At the bottom of the card, **"Sync these settings across my devices"** controls 
 />
 
 A local pick always wins on the browser it was made in: if you turn sync off and choose a palette, that browser keeps it even if the account setting changes elsewhere. Turning sync back on copies the browser's current palette and mode to your account and drops the local override. Turning sync off pins the current palette and mode to the browser and leaves your account setting untouched, so other synced browsers keep whatever was last synced.
+
+As the card notes, using the light/dark toggle on a public profile page also switches a browser to its own pick. A mode chosen there is saved only in that browser, never to your account, so afterwards that browser shows sync as off until you turn it back on.
 
 </TabItem>
 </Tabs>

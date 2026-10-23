@@ -2,37 +2,37 @@ images:
   - file: tour-dashboard-light.png
     platform: web
     phash: "8455555555555757"
-    captured: 2026-07-06
-    captured_ref: "dbce55d"
+    captured: 2026-09-30
+    captured_ref: "4527d6c"
     shows: >-
       Dashboard after signing in, with the sidebar listing the main areas
       from Dashboard to Settings, the Currently fronting and System cards,
       and the Start front button.
   - file: tour-dashboard-dark.png
     platform: web
-    phash: "feaaaaaaaaaaa828"
-    captured: 2026-07-06
-    captured_ref: "dbce55d"
+    phash: "feaaaaaaaaaaaa20"
+    captured: 2026-09-30
+    captured_ref: "4527d6c"
     shows: >-
       Dashboard after signing in, with the sidebar listing the main areas
       from Dashboard to Settings, the Currently fronting and System cards,
       and the Start front button. (dark theme variant)
   - file: android-home-light.png
     platform: android
-    phash: "8f9f075af0d0f0d0"
-    captured: 2026-07-06
-    captured_ref: "e92276b"
+    phash: "9f9f1edaf0c0f040"
+    captured: 2026-10-21
+    captured_ref: "942075f"
     shows: >-
-      Home screen with the Welcome header and its message, notification,
-      and settings icons, a current fronting card, the Switch button, the
-      Quick switch row, and the bottom navigation from Home to Polls.
+      Home screen with the Welcome header and its settings icon, a current
+      fronting card, the Switch button, the Quick switch row, and the bottom
+      navigation from Home to More.
   - file: android-home-dark.png
     platform: android
-    phash: "b468f8354a370f4b"
-    captured: 2026-07-06
-    captured_ref: "e92276b"
+    phash: "b540e1254b370f7b"
+    captured: 2026-10-21
+    captured_ref: "942075f"
     shows: >-
-      Home screen with the Welcome header and its message, notification,
-      and settings icons, a current fronting card, the Switch button, the
-      Quick switch row, and the bottom navigation from Home to Polls.
+      Home screen with the Welcome header and its settings icon, a current
+      fronting card, the Switch button, the Quick switch row, and the bottom
+      navigation from Home to More.
       (dark theme variant)

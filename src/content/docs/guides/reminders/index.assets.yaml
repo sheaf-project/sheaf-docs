@@ -2,8 +2,8 @@ images:
   - file: reminders-list-light.png
     platform: web
     phash: "9455555555555557"
-    captured: 2026-07-08
-    captured_ref: "271f085"
+    captured: 2026-09-30
+    captured_ref: "4527d6c"
     shows: >-
       The Reminders page listing an automated reminder that fires 30
       minutes after anyone fronts and two scheduled reminders (weekly
@@ -12,8 +12,8 @@ images:
   - file: reminders-list-dark.png
     platform: web
     phash: "fbaaaaaaaaaa2a28"
-    captured: 2026-07-08
-    captured_ref: "271f085"
+    captured: 2026-09-30
+    captured_ref: "4527d6c"
     shows: >-
       The Reminders page listing an automated reminder that fires 30
       minutes after anyone fronts and two scheduled reminders (weekly

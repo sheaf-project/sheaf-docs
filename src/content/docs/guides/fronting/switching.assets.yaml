@@ -2,17 +2,17 @@ images:
   - file: switching-dashboard-light.png
     platform: web
     phash: "8455555555555757"
-    captured: 2026-07-05
-    captured_ref: "240d9d7"
+    captured: 2026-09-30
+    captured_ref: "4527d6c"
     shows: >-
       Dashboard with the Currently fronting card showing an active fronter
       (member badge with time since) and the Start front button in the page
       header, plus the System card with member and active front counts.
   - file: switching-dashboard-dark.png
     platform: web
-    phash: "feaaaaaaaaaaa828"
-    captured: 2026-07-05
-    captured_ref: "240d9d7"
+    phash: "feaaaaaaaaaaaa20"
+    captured: 2026-09-30
+    captured_ref: "4527d6c"
     shows: >-
       Dashboard with the Currently fronting card showing an active fronter
       (member badge with time since) and the Start front button in the page
@@ -21,8 +21,8 @@ images:
   - file: switching-start-front-light.png
     platform: web
     phash: "9a1465d7655d3075"
-    captured: 2026-07-05
-    captured_ref: "240d9d7"
+    captured: 2026-09-30
+    captured_ref: "4527d6c"
     shows: >-
       Start front dialog open over the dashboard, with quick-pick chips,
       group and tag filter rows, the member search box, the full member
@@ -30,9 +30,9 @@ images:
       checkbox with the Start button.
   - file: switching-start-front-dark.png
     platform: web
-    phash: "cfeb302838a26f8b"
-    captured: 2026-07-05
-    captured_ref: "240d9d7"
+    phash: "cfeb302838aa6f83"
+    captured: 2026-09-30
+    captured_ref: "4527d6c"
     shows: >-
       Start front dialog open over the dashboard, with quick-pick chips,
       group and tag filter rows, the member search box, the full member
@@ -40,18 +40,18 @@ images:
       checkbox with the Start button. (dark theme variant)
   - file: android-home-light.png
     platform: android
-    phash: "8f9f075af0d0f0d0"
-    captured: 2026-07-06
-    captured_ref: "e92276b"
+    phash: "9f9f1edaf0c0f040"
+    captured: 2026-10-21
+    captured_ref: "942075f"
     shows: >-
       The Android Home tab with a current-front card (avatar, name, and
       time fronting), the Switch button in the bottom corner, and the
       Quick switch chip row above the bottom navigation.
   - file: android-home-dark.png
     platform: android
-    phash: "b468f8354a370f4b"
-    captured: 2026-07-06
-    captured_ref: "e92276b"
+    phash: "b540e1254b370f7b"
+    captured: 2026-10-21
+    captured_ref: "942075f"
     shows: >-
       The Android Home tab with a current-front card (avatar, name, and
       time fronting), the Switch button in the bottom corner, and the
@@ -60,8 +60,8 @@ images:
   - file: android-quick-switch-light.png
     platform: android
     phash: "8fd07a944ed4c6d8"
-    captured: 2026-07-06
-    captured_ref: "e92276b"
+    captured: 2026-10-21
+    captured_ref: "942075f"
     shows: >-
       The Select who's fronting sheet on Android, with group filter chips,
       the member search box, the member list with checkboxes and pronouns,
@@ -69,9 +69,9 @@ images:
       Confirm Switch button.
   - file: android-quick-switch-dark.png
     platform: android
-    phash: "f02f856b913ab923"
-    captured: 2026-07-06
-    captured_ref: "e92276b"
+    phash: "f02f856b912ab927"
+    captured: 2026-10-21
+    captured_ref: "942075f"
     shows: >-
       The Select who's fronting sheet on Android, with group filter chips,
       the member search box, the member list with checkboxes and pronouns,
@@ -79,9 +79,9 @@ images:
       Confirm Switch button. (dark theme variant)
   - file: wear-switch-dark.png
     platform: wear
-    phash: "822d5ad02dd27fc3"
-    captured: 2026-07-07
-    captured_ref: "605b119"
+    phash: "812b57d12b917ec3"
+    captured: 2026-10-22
+    captured_ref: "6c432d9"
     shows: >-
       The Wear OS Switch Front screen, with the End existing fronts toggle
       and the confirm button showing the count of selected members.

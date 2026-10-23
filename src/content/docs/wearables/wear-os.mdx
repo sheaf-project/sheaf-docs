@@ -10,8 +10,8 @@ covers:
     - "sheaf/wear/src/main/java/systems/lupine/sheaf/wear/complications/"
 verified:
   wear:
-    date: 2026-07-07
-    ref: "605b119"
+    date: 2026-10-22
+    ref: "6c432d9"
 ---
 
 Sheaf's Wear OS app puts fronting on your wrist: see who is at the front,
@@ -38,8 +38,10 @@ also includes a wear `.open` APK you can sideload onto the watch.
 
 The easy path is through your phone: the watch shows
 **"Open Sheaf on your phone to sign in"**, and signing in to the phone app
-syncs your credentials across to the watch. If the watch has not picked
-them up yet, **"Retry Sync"** asks the phone again.
+syncs your credentials across to the watch, which moves on to the menu by
+itself once they arrive. **"Open on phone"** brings up the Sheaf app on
+your paired phone so you can sign in there. If the watch has not picked
+the credentials up yet, **"Retry Sync"** asks the phone again.
 
 To use the watch without the phone app, choose **"Sign in manually"**
 instead and enter your server URL, email, and password directly on the
@@ -71,14 +73,16 @@ the screen reads **"No one fronting"**.
 
 ## Switch from your wrist
 
-On the **"Switch Front"** screen, the current fronters start out selected;
-tap member chips to select whoever is arriving and deselect whoever is
-stepping back. Selecting more than one member records co-fronting. Leave
+On the **"Switch Front"** screen, the current fronters start out selected,
+and the members you switch to most often are listed first. Tap member
+chips to select whoever is arriving and deselect whoever is stepping back. Selecting more than one member records co-fronting. Leave
 **"End existing fronts"** on to make it a switch, or turn it off to start
 the new front alongside the active ones; the toggle starts from your
 default in Settings. The confirm chip at the bottom shows how many members
 are selected - tap it to commit. Deselect everyone and the same chip
-clears the front instead.
+reads **"Clear Front"** and clears the front instead. If exactly those
+members are already fronting, the watch shows **"Already fronting"** and
+leaves the front as it is.
 
 ![The Switch Front screen with the End existing fronts toggle, a selected member chip, and the confirm chip showing the selection count](./wear-switch-dark.png)
 
@@ -101,7 +105,7 @@ display name and pronouns.
 see which members are in it; the same screen lets you tick members in or
 out of the group and save the change.
 
-![The Groups list reached from the start menu](./wear-groups-dark.png)
+![The Groups list, showing each group's name and description](./wear-groups-dark.png)
 
 ## History
 
@@ -118,8 +122,10 @@ the other platforms.
 **"Settings"** shows which server the watch is signed in to and a member
 and fronting count, with a **"Refresh"** chip to re-sync. The
 **"End fronts on switch"** toggle is the **"Default for the switch screen"**,
-and **"Sign Out"** (with a confirmation step) signs the watch out. The app
-version sits at the bottom.
+and **"Sign Out"** (with a confirmation step) signs the watch out. The watch
+then stays signed out, even though your phone is still signed in, until
+you tap **"Retry Sync"** or sign in manually. Signing out of the phone app
+signs the watch out too. The app version sits at the bottom.
 
 ![The Settings screen with the server address, member and fronting counts, and the Refresh chip](./wear-settings-dark.png)
 
@@ -131,7 +137,8 @@ to your phone, which delivers it as soon as it can. If the phone cannot be
 reached either, the switch is queued on the watch itself and sent on the
 next refresh. Queued switches keep their original time, so the front is
 recorded from the moment you switched, not the moment the watch got back
-online.
+online. A switch the server reached but turned down is not queued; the
+switch screen shows the error instead.
 
 ## Tiles and complications
 
@@ -143,18 +150,28 @@ Tiles (added from the watch's tile carousel):
 - **Fronters list**: the names of the current fronters.
 - **Fronters + faces**: fronter avatars with names underneath.
 - **Fronter faces**: fronter avatars only, for a purely visual read.
-- **Member tracker**: pick members when adding the tile; each shows a
+- **Member tracker**: tap the new tile to pick members; each shows a
   fronting indicator.
-- **Quick switch**: pick a roster when adding the tile, then select
-  members and commit a switch directly from the tile.
+- **Quick switch**: tap the new tile to pick a roster, then select
+  members and commit a switch directly from the tile. If those members
+  are already fronting, the tile tells you so instead of switching.
 - **Recent fronts**: a timeline of your latest switches.
+
+You can add any tile more than once, and each copy keeps its own member
+choice - for example, two **Member tracker** tiles following different
+members. On watches whose tile editor offers settings for a tile, those
+settings open the member picker for that copy. The fronter tiles and
+**Recent fronts** show everyone until you pick members for them; after
+that, that copy shows only those members, and **Recent fronts** keeps any
+entry that includes one of them.
 
 Complications (added to a watch-face slot):
 
 - **Sheaf**: a shortcut that opens the app.
 - **Sheaf: Switch**: a shortcut straight to the switch screen.
 - **Sheaf: Fronters (oldest first)** and **Sheaf: Fronters (newest first)**:
-  the current fronters' names, or a count in small slots.
+  the current fronters' names. Small slots show the first name plus how
+  many others are fronting.
 - **Sheaf: Fronting duration**: how long the longest-running current
   fronter has been at the front.
 - **Sheaf: Last switch**: how long since the fronting set last changed.

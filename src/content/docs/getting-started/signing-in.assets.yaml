@@ -2,49 +2,53 @@ images:
   - file: auth-login-light.png
     platform: web
     phash: "b3cccc3399662399"
-    captured: 2026-07-06
-    captured_ref: "dbce55d"
+    captured: 2026-09-30
+    captured_ref: "4527d6c"
     shows: >-
       Login tab on the login page with Email and Password fields and the
       Sign in button.
   - file: auth-login-dark.png
     platform: web
     phash: "cc3333cc66999966"
-    captured: 2026-07-06
-    captured_ref: "dbce55d"
+    captured: 2026-09-30
+    captured_ref: "4527d6c"
     shows: >-
       Login tab on the login page with Email and Password fields and the
       Sign in button. (dark theme variant)
   - file: auth-forgot-password-light.png
     platform: web
     phash: "b398cc663399cc66"
-    captured: 2026-07-06
-    captured_ref: "dbce55d"
+    captured: 2026-09-30
+    captured_ref: "4527d6c"
     shows: >-
       Reset your password page with the Email field, Send reset link
       button, and Back to login link.
   - file: auth-forgot-password-dark.png
     platform: web
     phash: "cc663399cc663399"
-    captured: 2026-07-06
-    captured_ref: "dbce55d"
+    captured: 2026-09-30
+    captured_ref: "4527d6c"
     shows: >-
       Reset your password page with the Email field, Send reset link
       button, and Back to login link. (dark theme variant)
+  # Server chip text set to app.sheaf.sh after capture (2026-10-20); the
+  # capture showed the local test server's address.
   - file: android-login-light.png
     platform: android
-    phash: "b672e2589d99d8c8"
-    captured: 2026-07-06
-    captured_ref: "e92276b"
+    phash: "b772e2589999d8c8"
+    captured: 2026-10-21
+    captured_ref: "942075f"
     shows: >-
       Sign In step of the Android login with the server chip, the Sign In
       and Register toggle, Email and Password fields, and the Sign In
       button.
+  # Server chip text set to app.sheaf.sh after capture (2026-10-20); the
+  # capture showed the local test server's address.
   - file: android-login-dark.png
     platform: android
-    phash: "c88d1d376262b33b"
-    captured: 2026-07-06
-    captured_ref: "e92276b"
+    phash: "c88d1d376266333b"
+    captured: 2026-10-21
+    captured_ref: "942075f"
     shows: >-
       Sign In step of the Android login with the server chip, the Sign In
       and Register toggle, Email and Password fields, and the Sign In

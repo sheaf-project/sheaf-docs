@@ -15,11 +15,11 @@ covers:
     - "sheaf/app/src/main/java/systems/lupine/sheaf/ui/home/"
 verified:
   web:
-    date: 2026-07-06
-    ref: "dbce55d"
+    date: 2026-09-30
+    ref: "4527d6c"
   android:
-    date: 2026-07-06
-    ref: "e92276b"
+    date: 2026-10-20
+    ref: "942075f"
 ---
 
 Sheaf tracks fronting, members, journals, and more for plural systems - on
@@ -71,17 +71,22 @@ Sheaf in the sidebar on the left.
   or deleted.
 - **"Analytics"**: fronting statistics over time.
 - **"Groups"**: organize members into groups; groups can be nested.
+- **"Relationships"**: how members and groups relate to each other, shown
+  as a graph you can explore and edit.
 - **"Notifications"**: notification channels, and watchers who get pinged
   when the front changes.
-- **"Reminders"**: one-off and automated reminders, delivered through your
-  notification channels.
+- **"Reminders"**: scheduled reminders and automated ones that fire after
+  a front change, delivered through your notification channels.
 - **"Polls"**: let your headmates vote on a question.
 - **"Messages"**: per-member message walls.
-- **"Settings"**: system behaviour, safety, appearance, account, and data
-  options.
+- **"Sharing"**: your public profile and share links, and who can see
+  what. This only appears if your instance allows public profiles (or if
+  you still have something shared from before it was turned off).
+- **"Settings"**: system behaviour, safety, appearance, account,
+  relationship types, and data options.
 
-The sidebar also has a **"Support"** link, and instance admins see an
-extra **"Admin"** section below the main areas.
+The sidebar also has a **"Support"** link just above **"Settings"**, and
+instance admins see an extra **"Admin"** section below the main areas.
 
 </TabItem>
 <TabItem label="Android">
@@ -95,13 +100,16 @@ instead.
 
 ## A quick tour
 
-After signing in you land on the home tab, and the main areas of the
-app sit in the navigation bar along the bottom of the screen.
+After signing in you land on the home tab. The navigation bar along the
+bottom of the screen holds **Home**, up to three areas you choose, and
+**"More"**, which opens a menu listing every area of the app. You can
+also open that menu by swiping in from the edge of the screen. On
+tablets and other wide screens, the bar sits down the side instead.
 
 <ThemeImage
 	light={androidHomeLight}
 	dark={androidHomeDark}
-	alt="Home screen with the Welcome header and its message, notification, and settings icons, a current fronting card, the Switch button, the Quick switch row, and the bottom navigation from Home to Polls"
+	alt="Home screen with the Welcome header and its settings icon, a current fronting card, the Switch button, the Quick switch row, and the bottom navigation from Home to More"
 />
 
 - **Home**: who is fronting right now and for how long, the
@@ -109,20 +117,42 @@ app sit in the navigation bar along the bottom of the screen.
   tap a member there to switch to them instantly.
 - **"Members"**: the members of your system and their groups - add them,
   edit their profiles, and organize them into groups.
-- **"History"**: your full front history, with fronting analytics a tap
-  away.
+- **"Front history"**: your full front history, with fronting analytics a
+  tap away.
 - **"Journals"**: journal entries, written by a member or for the system
   as a whole.
+
+Those three are the defaults. To choose which areas sit in the bar and in
+what order, go to **"Settings"** > **"Appearance"** > **"Navigation bar"**.
+
+The **"More"** menu lists those areas too, plus:
+
+- **"Groups"** and **"Analytics"**.
+- **"Board messages"**: per-member message walls.
 - **"Polls"**: let your headmates vote on a question.
+- **"Reminders"**: scheduled reminders and automated ones that fire
+  when a member starts or stops fronting.
+- **"Relationships"**: relationship types, and a graph of how members
+  and groups relate to each other.
+- **"Files"**: files you have uploaded.
+- **"Sharing"**: your public profile and share links. This only appears
+  if your instance allows public profiles (or if you still have something
+  shared from before it was turned off).
+- **"Notifications"**: notification channels and subscriptions, your
+  devices, the fronting notification, and app lock.
+- **"Support"** and **"Settings"**.
 
-The top of the home tab greets you by your system name, next to three
-icons: **"Board messages"** (per-member message walls),
-**"Notifications"** (channels, devices, and reminders), and
-**"Settings"**.
+The top of the home tab greets you by your system name, next to a
+**"Settings"** gear icon.
 
-Everything else lives behind the **"Settings"** gear icon: your system
-profile, account, appearance, notifications, server, data and imports,
-safety, and - for instance admins - the admin tools.
+**"Settings"** holds configuration: your system profile, account,
+appearance, fronting, system options (including safety), data and
+imports, notifications and app lock, server, and - for instance admins -
+the admin tools. It also has **"Support"** (contact, status, and
+policies), **"Danger Zone"** (sign out and account deletion), and
+**"About"** at the bottom, which shows the app's version and build and
+the server you are connected to, with the version it reports. That is
+useful to have to hand when asking for support.
 
 </TabItem>
 </Tabs>

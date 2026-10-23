@@ -1,43 +1,43 @@
 images:
   - file: members-list-light.png
     platform: web
-    phash: "8355555555555557"
-    captured: 2026-07-05
-    captured_ref: "240d9d7"
+    phash: "835555555555545f"
+    captured: 2026-09-30
+    captured_ref: "4527d6c"
     shows: "The Members page on web, showing the member roster as a grid of cards with avatars, names, and pronouns, and the Add member button in the header."
   - file: members-list-dark.png
     platform: web
-    phash: "feaaaaaaaaa8aaa0"
-    captured: 2026-07-05
-    captured_ref: "240d9d7"
+    phash: "fcaaaaaaaaaaaaa0"
+    captured: 2026-09-30
+    captured_ref: "4527d6c"
     shows: "The Members page on web, showing the member roster as a grid of cards with avatars, names, and pronouns, and the Add member button in the header. (dark theme variant)"
   - file: members-add-member-light.png
     platform: web
     phash: "9b5574d574557444"
-    captured: 2026-07-05
-    captured_ref: "240d9d7"
+    captured: 2026-09-30
+    captured_ref: "4527d6c"
     shows: "The Add member dialog on web, with fields for avatar, banner, name, display name, emoji, and pronouns visible."
   - file: members-add-member-dark.png
     platform: web
     phash: "deaa2322ab8aba39"
-    captured: 2026-07-05
-    captured_ref: "240d9d7"
+    captured: 2026-09-30
+    captured_ref: "4527d6c"
     shows: "The Add member dialog on web, with fields for avatar, banner, name, display name, emoji, and pronouns visible. (dark theme variant)"
   - file: android-members-light.png
     platform: android
     phash: "9ff0f0d0f01ec20f"
-    captured: 2026-07-06
-    captured_ref: "e92276b"
+    captured: 2026-10-21
+    captured_ref: "942075f"
     shows: "The Members tab on Android, with the Members and Groups segmented control, member cards with avatars, names, and pronouns, and the search and add buttons floating in the bottom corner."
   - file: android-members-dark.png
     platform: android
-    phash: "e05e2f2d1fa178a1"
-    captured: 2026-07-06
-    captured_ref: "e92276b"
+    phash: "e05e0f2f1fa178a1"
+    captured: 2026-10-21
+    captured_ref: "942075f"
     shows: "The Members tab on Android, with the Members and Groups segmented control, member cards with avatars, names, and pronouns, and the search and add buttons floating in the bottom corner. (dark theme variant)"
   - file: wear-members-dark.png
     platform: wear
-    phash: "c03b95c16ac03fcf"
-    captured: 2026-07-07
-    captured_ref: "605b119"
+    phash: "c03b95d16ac03fce"
+    captured: 2026-10-22
+    captured_ref: "6c432d9"
     shows: "The Wear OS Members list, with the Refresh and Add Member chips above member chips showing avatars, names, and pronouns."
